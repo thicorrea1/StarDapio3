@@ -1,24 +1,18 @@
 package com.example.stardapio;
 
-import java.util.List;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.stardapio.bean.Item;
 import com.example.stardapio.fragments.ScreenSlidePageFragment;
-import com.example.stardapio.webservice.RestaurantREST;
 
 public class MenuSlideActivity extends FragmentActivity {
 
@@ -54,38 +48,10 @@ public class MenuSlideActivity extends FragmentActivity {
 	 */
 	private PagerAdapter mPagerAdapter;
 
-	private String urlImage;
-	private List<Item> itens;
-
-	private class GetAsync extends AsyncTask<Void, Void, List<Item>> {
-
-		@Override
-		protected List<Item> doInBackground(Void... arg0) {
-			RestaurantREST rest = new RestaurantREST();
-			List<Item> listaItem = null;
-			String id = getIntent().getExtras().getString("idRestaurante");
-			try {
-				listaItem = rest.getListaItem(id);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			Log.i("MenuSlide", "itens: " + listaItem.get(0).getUrlImage());
-			return listaItem;
-		}
-
-		@Override
-		protected void onPostExecute(List<Item> result) {
-			Log.i("onPostExecute", "itens: " + itens);
-			itens = result;
-		}
-
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_screen_slide);
-		new GetAsync().execute();
 
 		// Instantiate a ViewPager and a PagerAdapter.
 		mPager = (ViewPager) findViewById(R.id.pager);
@@ -169,10 +135,12 @@ public class MenuSlideActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			urlImage = "http://s.glbimg.com/es/ge/f/original/2010/11/19/santos_45x45.png";
-			//Item item = itens.get(position);
-			//urlImage = item.getUrlImage();
-			return ScreenSlidePageFragment.create(position, urlImage);
+			// urlImage =
+			// "http://s.glbimg.com/es/ge/f/original/2010/11/19/santos_45x45.png";
+			// Item item = itens.get(position);
+			// urlImage = item.getUrlImage();
+			String id = getIntent().getExtras().getString("idRestaurante");
+			return ScreenSlidePageFragment.create(position, id);
 		}
 
 		@Override
