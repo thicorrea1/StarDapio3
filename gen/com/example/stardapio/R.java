@@ -34,29 +34,36 @@ public final class R {
     
          */
         public static final int action_next=0x7f050000;
-        public static final int action_previous=0x7f05000f;
-        public static final int action_settings=0x7f050010;
-        public static final int base=0x7f050003;
-        public static final int description=0x7f050005;
-        public static final int image=0x7f050006;
-        public static final int item_descricao=0x7f05000a;
-        public static final int item_img=0x7f050008;
-        public static final int item_nome=0x7f050009;
-        public static final int item_preco=0x7f05000b;
-        public static final int linearLayoutItem=0x7f050007;
+        public static final int action_previous=0x7f050014;
+        public static final int action_settings=0x7f050015;
+        public static final int base=0x7f050006;
+        public static final int description=0x7f050008;
+        public static final int image=0x7f050009;
+        public static final int item_descricao=0x7f05000d;
+        public static final int item_img=0x7f05000b;
+        public static final int item_nome=0x7f05000c;
+        public static final int item_preco=0x7f05000e;
+        public static final int linearLayoutItem=0x7f05000a;
         public static final int pager=0x7f050002;
-        public static final int restaurante_endereco=0x7f05000e;
-        public static final int restaurante_img=0x7f05000c;
-        public static final int restaurante_nome=0x7f05000d;
-        public static final int spinner=0x7f050004;
+        public static final int preview_view=0x7f050003;
+        public static final int restaurante_endereco=0x7f050013;
+        public static final int restaurante_img=0x7f050011;
+        public static final int restaurante_nome=0x7f050012;
+        public static final int scan_button=0x7f05000f;
+        public static final int scan_result=0x7f050010;
+        public static final int spinner=0x7f050007;
+        public static final int status_view=0x7f050005;
+        public static final int viewfinder_view=0x7f050004;
     }
     public static final class layout {
         public static final int activity_screen_slide=0x7f030000;
-        public static final int cardapio=0x7f030001;
-        public static final int fragment_screen_slide_page=0x7f030002;
-        public static final int item_adapter=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int restaurant_adapter=0x7f030005;
+        public static final int capture=0x7f030001;
+        public static final int cardapio=0x7f030002;
+        public static final int fragment_screen_slide_page=0x7f030003;
+        public static final int item_adapter=0x7f030004;
+        public static final int main=0x7f030005;
+        public static final int qrcode=0x7f030006;
+        public static final int restaurant_adapter=0x7f030007;
     }
     public static final class menu {
         public static final int activity_screen_slide=0x7f080000;
@@ -70,6 +77,10 @@ public final class R {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int hello_world=0x7f060002;
+        public static final int msg_default_status=0x7f06000b;
+        public static final int scan=0x7f060008;
+        public static final int scan_qrcode=0x7f060009;
+        public static final int scan_resut_lable=0x7f06000a;
         public static final int title_activity_cardapio=0x7f060003;
         public static final int title_activity_menu_slide=0x7f060004;
     }

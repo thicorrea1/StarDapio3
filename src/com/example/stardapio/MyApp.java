@@ -8,9 +8,18 @@ public class MyApp extends Application {
 
 	// instance
 	private static MyApp instance = null;
+
+	private String mesa = null;
 	private ImageLoaderConfiguration globalConfig = null;
 
-	
+	public String getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(String mesa) {
+		this.mesa = mesa;
+	}
+
 	public ImageLoaderConfiguration getGlobalConfig() {
 		return globalConfig;
 	}

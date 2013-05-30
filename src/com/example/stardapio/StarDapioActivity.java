@@ -63,10 +63,9 @@ public class StarDapioActivity extends ListActivity {
 		setContentView(R.layout.main);
 
 		File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());
-		config = new ImageLoaderConfiguration.Builder(
-				getApplicationContext()).discCache(
-				new UnlimitedDiscCache(cacheDir)).build();
-		MyApp appConfig = ((MyApp)getApplicationContext());
+		config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+				.discCache(new UnlimitedDiscCache(cacheDir)).build();
+		MyApp appConfig = ((MyApp) getApplicationContext());
 		appConfig.setGlobalConfig(config);
 		new GetAsync().execute();
 	}
@@ -91,6 +90,11 @@ public class StarDapioActivity extends ListActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	public void startScan(View view) {
+		Intent intent = new Intent(this, QRCodeActivity.class);
+		startActivity(intent);
 	}
 
 }
