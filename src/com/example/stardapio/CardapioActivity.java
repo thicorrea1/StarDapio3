@@ -58,7 +58,7 @@ public class CardapioActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.cardapio);
 		new GetAsync().execute();
 
 	}

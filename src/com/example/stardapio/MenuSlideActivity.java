@@ -1,5 +1,8 @@
 package com.example.stardapio;
 
+public class MenuSlideActivity {}
+
+/*
 import java.util.List;
 
 import android.app.Fragment;
@@ -142,3 +145,4 @@ public class MenuSlideActivity extends FragmentActivity {
 
 	}
 }
+*/

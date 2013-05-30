@@ -13,8 +13,12 @@ import com.google.gson.reflect.TypeToken;
 
 public class RestaurantREST {
 
-	private static final String URL_WSRESTAURANTE = "http://10.0.2.2:8080/StarDapioREST/restaurante/";
-	private static final String URL_WSMENU = "http://10.0.2.2:8080/StarDapioREST/menu/";
+	
+	private static final String URL_WSRESTAURANTE = "http://192.168.1.33:8080/StarDapioREST/restaurante/";
+	private static final String URL_WSMENU = "http://192.168.1.33:8080/StarDapioREST/menu/";
+
+//	private static final String URL_WSRESTAURANTE = "http://10.0.2.2:8080/StarDapioREST/restaurante/";
+	//private static final String URL_WSMENU = "http://10.0.2.2:8080/StarDapioREST/menu/";
 
 	public List<Restaurant> getListaRestaurante() throws Exception {
 
