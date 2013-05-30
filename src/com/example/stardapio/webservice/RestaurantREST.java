@@ -4,8 +4,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-
 import com.example.stardapio.bean.Item;
 import com.example.stardapio.bean.Restaurant;
 import com.google.gson.Gson;
@@ -33,7 +31,7 @@ public class RestaurantREST {
 			Type collectionType = new TypeToken<List<Restaurant>>() {
 			}.getType();
 			listaRestaurante = gson.fromJson(array, collectionType);
-			Log.i("return", "Restaurante: " + listaRestaurante.get(0));
+
 			return listaRestaurante;
 
 		} else {
@@ -55,7 +53,7 @@ public class RestaurantREST {
 			Type collectionType = new TypeToken<List<Item>>() {
 			}.getType();
 			listaItem = gson.fromJson(array, collectionType);
-			Log.i("return", "Return: " + listaItem.get(0));
+
 			return listaItem;
 
 		} else {
