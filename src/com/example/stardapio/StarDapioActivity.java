@@ -1,5 +1,7 @@
 package com.example.stardapio;
 
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +21,8 @@ public class StarDapioActivity extends FragmentActivity {
 
 	private GoogleMap mMap = null;
 	private GoogleMapOptions options = null;
+	
+	private HashMap<Integer, Marker> markerMap = new HashMap<Integer, Marker>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,9 @@ public class StarDapioActivity extends FragmentActivity {
 				.rotateGesturesEnabled(false).tiltGesturesEnabled(false);
 		SupportMapFragment.newInstance(options);
 
-		mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(
+		Marker marker1 = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(
 				"Cara de Fome"));
+		this.markerMap.put(1, marker1);
 
 		mMap.setInfoWindowAdapter(new InfoWindowAdapter() {
 			
@@ -55,7 +60,7 @@ public class StarDapioActivity extends FragmentActivity {
 			
 			@Override
 			public boolean onMarkerClick(Marker marker) {
-				goCardapio();
+				goCardapio(marker.getId());
 				return true;
 			}
 		});
@@ -74,8 +79,9 @@ public class StarDapioActivity extends FragmentActivity {
 		}
 	}
 	
-	private void goCardapio() {
+	private void goCardapio(String id) {
 		Intent intent = new Intent(this, CardapioActivity.class);
+		intent.putExtra("idRestaurante", id);
 		startActivity(intent);
 	}
 }
