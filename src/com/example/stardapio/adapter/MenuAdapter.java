@@ -33,7 +33,7 @@ public class MenuAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(context);
 		this.itens = itens;
 		imageLoader = ImageLoader.getInstance();
-		imageLoader.init(config);
+		
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.example.stardapio;
 
+import java.io.File;
 import java.util.HashMap;
 
 import android.content.Intent;
@@ -17,6 +18,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 public class StarDapioActivity extends FragmentActivity {
 
@@ -24,12 +29,19 @@ public class StarDapioActivity extends FragmentActivity {
 	private GoogleMapOptions options = null;
 
 	private HashMap<Integer, Marker> markerMap = new HashMap<Integer, Marker>();
+	private ImageLoaderConfiguration config;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		
+		File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());
+		config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+				.discCache(new UnlimitedDiscCache(cacheDir)).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(config);
+		
 		setUpMapIfNeeded();
 
 		options = new GoogleMapOptions();
@@ -43,20 +55,19 @@ public class StarDapioActivity extends FragmentActivity {
 
 		/*
 		 * while(restaurantes.next()) {
-		 *  
-		 * Marker marker = mMap.addMarker(new
-		 * MarkerOptions().position(new LatLng(restaurantes.getLat(),
+		 * 
+		 * Marker marker = mMap.addMarker(new MarkerOptions().position(new
+		 * LatLng(restaurantes.getLat(),
 		 * restaurantes.getLng()).title(restaraurantes.getName());
-		 * this.markerMap.put(restaurantes.getId(), marker);
-		 * }
+		 * this.markerMap.put(restaurantes.getId(), marker); }
 		 */
 		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
-			
+
 			@Override
 			public void onInfoWindowClick(Marker marker) {
 				// Exibe informacoes do restaurante like, marker.getId()
 				// startActivity Cardapio (y)
-				
+
 			}
 		});
 		mMap.setInfoWindowAdapter(new InfoWindowAdapter() {

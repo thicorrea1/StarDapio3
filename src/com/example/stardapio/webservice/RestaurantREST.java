@@ -4,6 +4,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 import com.example.stardapio.bean.Item;
 import com.example.stardapio.bean.Restaurant;
 import com.google.gson.Gson;
@@ -12,10 +14,11 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 public class RestaurantREST {
-
+	private static final String URL_WSRESTAURANTE = "http://192.168.1.32:8081/StarDapioREST/restaurante/";
+	private static final String URL_WSMENU = "http://192.168.1.32:8081/StarDapioREST/menu/";
 	
-	private static final String URL_WSRESTAURANTE = "http://192.168.1.33:8080/StarDapioREST/restaurante/";
-	private static final String URL_WSMENU = "http://192.168.1.33:8080/StarDapioREST/menu/";
+	//private static final String URL_WSRESTAURANTE = "http://192.168.1.33:8080/StarDapioREST/restaurante/";
+	//private static final String URL_WSMENU = "http://192.168.1.33:8080/StarDapioREST/menu/";
 
 //	private static final String URL_WSRESTAURANTE = "http://10.0.2.2:8080/StarDapioREST/restaurante/";
 	//private static final String URL_WSMENU = "http://10.0.2.2:8080/StarDapioREST/menu/";
@@ -45,9 +48,9 @@ public class RestaurantREST {
 
 	public List<Item> getListaItem(String idRestaurante) throws Exception {
 
-		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "GSON/"
-				+ idRestaurante);
-
+		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "GSON/1");
+				//+ idRestaurante);
+//Log.i("ID_RESTAURANTE", idRestaurante);
 		if (resposta[0].equals("200")) {
 			Gson gson = new Gson();
 			ArrayList<Item> listaItem;

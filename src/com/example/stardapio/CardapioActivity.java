@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
@@ -34,6 +35,7 @@ public class CardapioActivity extends ListActivity {
 			RestaurantREST rest = new RestaurantREST();
 			List<Item> itens = null;
 			String id = getIntent().getExtras().getString("idRestaurante");
+			Log.i("ID_RESTAURANTE_ACTIVITY", id);
 			try {
 				itens = rest.getListaItem(id);
 			} catch (Exception e) {
