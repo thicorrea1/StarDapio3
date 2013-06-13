@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -81,4 +82,7 @@ public class CardapioActivity extends ListActivity {
 		// ==============================================
 	}
 
+	public void scan(View view) {
+		startActivity(new Intent(this, QRCodeActivity.class));
+	}
 }

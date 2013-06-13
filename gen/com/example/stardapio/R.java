@@ -152,8 +152,8 @@ containing a value of this type.
     
          */
         public static final int action_next=0x7f040005;
-        public static final int action_previous=0x7f04001c;
-        public static final int action_settings=0x7f04001d;
+        public static final int action_previous=0x7f04001b;
+        public static final int action_settings=0x7f04001c;
         public static final int base=0x7f04000b;
         public static final int description=0x7f04000d;
         public static final int hybrid=0x7f040004;
@@ -169,13 +169,12 @@ containing a value of this type.
         public static final int normal=0x7f040001;
         public static final int pager=0x7f040007;
         public static final int preview_view=0x7f040008;
-        public static final int restaurante_endereco=0x7f04001b;
-        public static final int restaurante_img=0x7f040019;
-        public static final int restaurante_nome=0x7f04001a;
+        public static final int restaurante_endereco=0x7f04001a;
+        public static final int restaurante_img=0x7f040018;
+        public static final int restaurante_nome=0x7f040019;
         public static final int satellite=0x7f040002;
-        public static final int scan_button=0x7f040017;
-        public static final int scan_result=0x7f040018;
-        public static final int spinner=0x7f04000c;
+        public static final int scan_button=0x7f04000c;
+        public static final int scan_result=0x7f040017;
         public static final int status_view=0x7f04000a;
         public static final int terrain=0x7f040003;
         public static final int textView1=0x7f040014;

@@ -6,31 +6,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
+import android.util.Log;
 
 public class QRCodeActivity extends Activity {
     private Handler  handler = new Handler();
-    private TextView txtScanResult;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcode);
 
-        txtScanResult = (TextView) findViewById(R.id.scan_result);
-        View btnScan = findViewById(R.id.scan_button);
+       // txtScanResult = (TextView) findViewById(R.id.scan_result);
+        //View btnScan = findViewById(R.id.scan_button);
 
         // Scan button
-        btnScan.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //btnScan.setOnClickListener(new OnClickListener() {
+          //  @Override
+            //public void onClick(View v) {
                 // set the last parameter to true to open front light if available
                 IntentIntegrator.initiateScan(QRCodeActivity.this, R.layout.capture,
                         R.id.viewfinder_view, R.id.preview_view, true);
-            }
-        });
+            //}
+        //});
     }
 
     @Override
@@ -51,12 +48,13 @@ public class QRCodeActivity extends Activity {
                             //txtScanResult.setText(result);
                             MyApp myApp = MyApp.getInstance();
                             myApp.setMesa(result);
-                            txtScanResult.setText(myApp.getMesa());
+                            Log.i("MESA NUMERO =>", myApp.getMesa());
                         }
                     });
                 }
                 break;
             default:
         }
+        finish();
     }
 }

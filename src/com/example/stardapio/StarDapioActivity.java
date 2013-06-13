@@ -2,19 +2,23 @@ package com.example.stardapio;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
-import android.widget.TextView;
+import android.util.Log;
 
+import com.example.stardapio.bean.Restaurant;
+import com.example.stardapio.webservice.RestaurantREST;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,30 +32,34 @@ public class StarDapioActivity extends FragmentActivity {
 	private GoogleMap mMap = null;
 	private GoogleMapOptions options = null;
 
-	private HashMap<Integer, Marker> markerMap = new HashMap<Integer, Marker>();
+	private HashMap<Marker, Integer> markerMap = new HashMap<Marker, Integer>();
 	private ImageLoaderConfiguration config;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());
 		config = new ImageLoaderConfiguration.Builder(getApplicationContext())
 				.discCache(new UnlimitedDiscCache(cacheDir)).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(config);
-		
+
 		setUpMapIfNeeded();
+		LatLng cameraInite = new LatLng(-23.570664, -46.645117);
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraInite, 0));
 
-		options = new GoogleMapOptions();
-		options.mapType(GoogleMap.MAP_TYPE_HYBRID).compassEnabled(false)
-				.rotateGesturesEnabled(false).tiltGesturesEnabled(false);
-		SupportMapFragment.newInstance(options);
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+				.target(cameraInite)									
+				.zoom(15) 
+				.bearing(90) 
+				.tilt(30) 
+				.build(); 
+		mMap.animateCamera(CameraUpdateFactory
+				.newCameraPosition(cameraPosition));
 
-		Marker marker1 = mMap.addMarker(new MarkerOptions().position(
-				new LatLng(0, 0)).title("Cara de Fome"));
-		this.markerMap.put(1, marker1);
+		new GetAsync().execute();
 
 		/*
 		 * while(restaurantes.next()) {
@@ -61,39 +69,21 @@ public class StarDapioActivity extends FragmentActivity {
 		 * restaurantes.getLng()).title(restaraurantes.getName());
 		 * this.markerMap.put(restaurantes.getId(), marker); }
 		 */
+
 		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-				// Exibe informacoes do restaurante like, marker.getId()
-				// startActivity Cardapio (y)
-
-			}
-		});
-		mMap.setInfoWindowAdapter(new InfoWindowAdapter() {
-
-			@Override
-			public View getInfoContents(Marker marker) {
-				TextView view = ((TextView) findViewById(R.id.info));
-				view.setText("Rua: Lá na PQP!");
-				return view;
-			}
-
-			@Override
-			public View getInfoWindow(Marker marker) {
-
-				return null;
+				goCardapio(markerMap.get(marker).toString());
 			}
 		});
 
-		mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
-
-			@Override
-			public boolean onMarkerClick(Marker marker) {
-				goCardapio(marker.getId());
-				return true;
-			}
-		});
+		/*
+		 * mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+		 * 
+		 * @Override public boolean onMarkerClick(Marker marker) {
+		 * goCardapio(markerMap.get(marker).toString()); return true; } });
+		 */
 	}
 
 	private void setUpMapIfNeeded() {
@@ -102,7 +92,7 @@ public class StarDapioActivity extends FragmentActivity {
 					.findFragmentById(R.id.map)).getMap();
 			if (mMap != null) {
 				// Ok (y)
-				mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+				mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 			}
 		} else {
 			throw new RuntimeException("AHahahha");
@@ -114,6 +104,64 @@ public class StarDapioActivity extends FragmentActivity {
 		intent.putExtra("idRestaurante", id);
 		startActivity(intent);
 	}
+
+	private class GetAsync extends AsyncTask<Void, Void, List<Restaurant>> {
+
+		private ProgressDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+		}
+
+		@Override
+		protected List<Restaurant> doInBackground(Void... arg0) {
+			RestaurantREST rest = new RestaurantREST();
+			List<Restaurant> restaurantes = null;
+
+			try {
+				restaurantes = rest.getListaRestaurante();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return restaurantes;
+		}
+
+		@Override
+		protected void onPostExecute(List<Restaurant> result) {
+
+			options = new GoogleMapOptions();
+			options.mapType(GoogleMap.MAP_TYPE_HYBRID).compassEnabled(false)
+					.rotateGesturesEnabled(false).tiltGesturesEnabled(false);
+			SupportMapFragment.newInstance(options);
+
+			// arrumar latlng no bd
+			LatLng caraDeFome = new LatLng(-23.570664, -46.645117);
+			LatLng outroRestaurante = new LatLng(-23.568422, -46.647906);
+
+			LatLng[] positions = { caraDeFome, outroRestaurante };
+
+			for (Restaurant r : result) {
+				Marker marker = mMap.addMarker(new MarkerOptions()
+						.position(positions[r.getId() - 1]).title(r.getNome())
+						.snippet("Ver Cardapio"));
+				markerMap.put(marker, r.getId());
+				Log.i("LOOP", r.getNome());
+			}
+			/*
+			 * Marker marker1 = mMap.addMarker(new MarkerOptions()
+			 * .position(caraDeFome).title("Cara de Fome")
+			 * .snippet("Ver Cardapio"));
+			 * 
+			 * Marker marker2 = mMap.addMarker(new MarkerOptions() .position(new
+			 * LatLng(20, 44)).title("Outro Restaurante")
+			 * .snippet("Ver Cardapio"));
+			 * 
+			 * markerMap.put(marker1, 1); markerMap.put(marker2, 2);
+			 */
+		}
+
+	}
+
 }
 
 /*
@@ -166,10 +214,11 @@ public class StarDapioActivity extends FragmentActivity {
  * ((MyApp) getApplicationContext()); appConfig.setGlobalConfig(config); new
  * GetAsync().execute(); }
  * 
- * @Override protected void onListItemClick(ListView l, View view, int position,
- * long id) { // Intent intent = new Intent(this, CardapioActivity.class);
- * Intent intent = new Intent(this, MenuSlideActivity.class); String selection =
- * l.getItemAtPosition(position).toString();
+ * @Override protected void onListRestaurantClick(ListView l, View view, int
+ * position, long id) { // Intent intent = new Intent(this,
+ * CardapioActivity.class); Intent intent = new Intent(this,
+ * MenuSlideActivity.class); String selection =
+ * l.getRestaurantAtPosition(position).toString();
  * intent.putExtra("nomeDoRestaurante", selection); // Apenas para depuracao
  * String idRestaurante = String.valueOf(id); Toast.makeText(this,
  * idRestaurante, Toast.LENGTH_LONG).show(); intent.putExtra("idRestaurante",
@@ -177,7 +226,7 @@ public class StarDapioActivity extends FragmentActivity {
  * Intent(StarDapioActivity.this, // MenuSlideActivity.class)); }
  * 
  * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
- * menu; this adds items to the action bar if it is present.
+ * menu; this adds Restaurants to the action bar if it is present.
  * getMenuInflater().inflate(R.menu.main, menu); return true; }
  * 
  * public void startScan(View view) { Intent intent = new Intent(this,
