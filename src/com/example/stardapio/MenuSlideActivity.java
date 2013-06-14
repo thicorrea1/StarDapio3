@@ -1,18 +1,18 @@
 package com.example.stardapio;
 
-public class MenuSlideActivity {}
+//public class MenuSlideActivity {}
 
-/*
 import java.util.List;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import com.example.stardapio.bean.Item;
 import com.example.stardapio.fragments.ScreenSlidePageFragment;
 import com.example.stardapio.webservice.RestaurantREST;
+//import android.app.Fragment;
 
 public class MenuSlideActivity extends FragmentActivity {
 
@@ -39,9 +40,10 @@ public class MenuSlideActivity extends FragmentActivity {
 		new GetAsync().execute();
 
 		mPager = (ViewPager) findViewById(R.id.pager);
-		mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
+		mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -56,8 +58,10 @@ public class MenuSlideActivity extends FragmentActivity {
 						Menu.NONE,
 						(mPager.getCurrentItem() == mPagerAdapter.getCount() - 1) ? R.string.action_finish
 								: R.string.action_next);
-		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM
-				| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM
+					| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		}
 		return true;
 	}
 
@@ -84,7 +88,7 @@ public class MenuSlideActivity extends FragmentActivity {
 
 	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-		public ScreenSlidePagerAdapter(FragmentManager fm) {
+		public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
 			super(fm);
 		}
 
@@ -133,16 +137,18 @@ public class MenuSlideActivity extends FragmentActivity {
 			NUM_PAGES = result.size();
 
 			mPager.setAdapter(mPagerAdapter);
-			mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-				@Override
-				public void onPageSelected(int position) {
-					invalidateOptionsMenu();
-				}
-			});
-
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+				mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+	
+					@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+					@Override
+					public void onPageSelected(int position) {
+						invalidateOptionsMenu();
+					}
+				});
+			}
 			dialog.dismiss();
 		}
 
 	}
 }
-*/

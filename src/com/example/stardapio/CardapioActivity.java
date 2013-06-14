@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.stardapio.adapter.MenuAdapter;
 import com.example.stardapio.bean.Item;
@@ -77,9 +76,14 @@ public class CardapioActivity extends ListActivity {
 		// faz uma requisicao/pedido do item selecionado
 		// ==============================================
 		// apenas para depuracao
-		String selection = l.getItemAtPosition(position).toString();
-		Toast.makeText(this, selection, Toast.LENGTH_LONG).show();
+		// String selection = l.getItemAtPosition(position).toString();
+		// Toast.makeText(this, selection, Toast.LENGTH_LONG).show();
 		// ==============================================
+
+		Intent intent = new Intent(this, MenuSlideActivity.class);
+		String idRestaurante = String.valueOf(id);
+		intent.putExtra("idRestaurante", idRestaurante);
+		startActivity(intent);
 	}
 
 	public void scan(View view) {

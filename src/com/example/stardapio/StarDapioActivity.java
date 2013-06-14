@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import com.example.stardapio.bean.Restaurant;
 import com.example.stardapio.webservice.RestaurantREST;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -31,6 +31,8 @@ public class StarDapioActivity extends FragmentActivity {
 
 	private GoogleMap mMap = null;
 	private GoogleMapOptions options = null;
+	
+	private CameraPosition cameraPosition = null;
 
 	private HashMap<Marker, Integer> markerMap = new HashMap<Marker, Integer>();
 	private ImageLoaderConfiguration config;
@@ -47,28 +49,19 @@ public class StarDapioActivity extends FragmentActivity {
 		imageLoader.init(config);
 
 		setUpMapIfNeeded();
-		LatLng cameraInite = new LatLng(-23.570664, -46.645117);
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraInite, 0));
+
+		// obter localizacao
+		LatLng cameraInitial = new LatLng(-23.570664, -46.645117);
+		//cameraInitial = cameraPosition.target;
+		
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraInitial, 0));
 
 		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(cameraInite)									
-				.zoom(15) 
-				.bearing(90) 
-				.tilt(30) 
-				.build(); 
+				.target(cameraInitial).zoom(10).bearing(90).tilt(30).build();
 		mMap.animateCamera(CameraUpdateFactory
 				.newCameraPosition(cameraPosition));
 
 		new GetAsync().execute();
-
-		/*
-		 * while(restaurantes.next()) {
-		 * 
-		 * Marker marker = mMap.addMarker(new MarkerOptions().position(new
-		 * LatLng(restaurantes.getLat(),
-		 * restaurantes.getLng()).title(restaraurantes.getName());
-		 * this.markerMap.put(restaurantes.getId(), marker); }
-		 */
 
 		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 
@@ -78,12 +71,19 @@ public class StarDapioActivity extends FragmentActivity {
 			}
 		});
 
-		/*
-		 * mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
-		 * 
-		 * @Override public boolean onMarkerClick(Marker marker) {
-		 * goCardapio(markerMap.get(marker).toString()); return true; } });
-		 */
+		mMap.setOnCameraChangeListener(new OnCameraChangeListener() {
+
+			@Override
+			public void onCameraChange(CameraPosition position) {
+				Log.i("POSITION", position.toString());
+				Log.i("mMap", mMap.getCameraPosition().toString());
+				float zoom = position.zoom;
+				if (zoom < mMap.getCameraPosition().zoom) {
+					// 
+				}
+			}
+		});
+		mMap.setMyLocationEnabled(true);
 	}
 
 	private void setUpMapIfNeeded() {
@@ -106,12 +106,6 @@ public class StarDapioActivity extends FragmentActivity {
 	}
 
 	private class GetAsync extends AsyncTask<Void, Void, List<Restaurant>> {
-
-		private ProgressDialog dialog;
-
-		@Override
-		protected void onPreExecute() {
-		}
 
 		@Override
 		protected List<Restaurant> doInBackground(Void... arg0) {
