@@ -136,10 +136,10 @@ public class StarDapioActivity extends FragmentActivity {
 
 			for (Restaurant r : result) {
 				Marker marker = mMap.addMarker(new MarkerOptions()
-						.position(positions[r.getId() - 1]).title(r.getNome())
+						.position(positions[r.getIdRestaurant() - 1]).title(r.getName())
 						.snippet("Ver Cardapio"));
-				markerMap.put(marker, r.getId());
-				Log.i("LOOP", r.getNome());
+				markerMap.put(marker, r.getIdRestaurant());
+				Log.i("LOOP", r.getName());
 			}
 			/*
 			 * Marker marker1 = mMap.addMarker(new MarkerOptions()

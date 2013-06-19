@@ -48,7 +48,7 @@ public class RestaurantAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int index) {
-		return restaurants.get(index).getId();
+		return restaurants.get(index).getIdRestaurant();
 	}
 
 	@Override
@@ -72,14 +72,14 @@ public class RestaurantAdapter extends BaseAdapter {
 
 		Restaurant r = restaurants.get(posicao);
 
-		holder.tvNome.setText(r.getNome());
-		holder.tvEnd.setText(r.getEnd());
+		holder.tvNome.setText(r.getName());
+		holder.tvEnd.setText(r.getAddress());
 
 		// String imageUrl =
 		// "http://4.bp.blogspot.com/-w6NRgw49GqY/UFGyAFlIFnI/AAAAAAAAAcI/Zo2Jr7a4oMI/s1600/image2.jpeg";
-		String imageUrl = r.getUrlImage();
+		// String imageUrl = r.getUrlImage();
 
-		imageLoader.displayImage(imageUrl, holder.img);
+		// imageLoader.displayImage(imageUrl, holder.img);
 
 		return convertView;
 	}

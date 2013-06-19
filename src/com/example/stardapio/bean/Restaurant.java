@@ -1,60 +1,54 @@
 package com.example.stardapio.bean;
 
 public class Restaurant {
-	private int id;
-	private String nome;
-	private String end;
-	private String urlImage;
-	private Menu menu;
+	private int idRestaurant;
+	private String name;
+	private String address;
+	private double lat;
+	private double lng;
 
-	public Restaurant() {
-
-	}
-
-	// Inicialmente sera usado para identificar o restaurante nas chamadas ao WS
 	@Override
 	public String toString() {
-		return nome;
+		return name;
 	}
 
-	public String getNome() {
-		return nome;
+	public int getIdRestaurant() {
+		return idRestaurant;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setIdRestaurant(int idRestaurant) {
+		this.idRestaurant = idRestaurant;
 	}
 
-	public String getEnd() {
-		return end;
+	public String getName() {
+		return name;
 	}
 
-	public void setEnd(String end) {
-		this.end = end;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public int getId() {
-		return id;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public Menu getMenu() {
-		return menu;
+	public double getLat() {
+		return lat;
 	}
 
-	public void setMenu(Menu menu) {
-		this.menu = menu;
+	public void setLat(double lat) {
+		this.lat = lat;
 	}
 
-	public String getUrlImage() {
-		return urlImage;
+	public double getLng() {
+		return lng;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setLng(double lng) {
+		this.lng = lng;
 	}
-
 }
