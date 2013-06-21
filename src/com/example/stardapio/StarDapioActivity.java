@@ -4,7 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -31,8 +34,6 @@ public class StarDapioActivity extends FragmentActivity {
 
 	private GoogleMap mMap = null;
 	private GoogleMapOptions options = null;
-	
-	private CameraPosition cameraPosition = null;
 
 	private HashMap<Marker, Integer> markerMap = new HashMap<Marker, Integer>();
 	private ImageLoaderConfiguration config;
@@ -52,8 +53,19 @@ public class StarDapioActivity extends FragmentActivity {
 
 		// obter localizacao
 		LatLng cameraInitial = new LatLng(-23.570664, -46.645117);
-		//cameraInitial = cameraPosition.target;
-		
+		// cameraInitial = cameraPosition.target;
+
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Location location = lm
+				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if(location == null) {
+			location = lm
+					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		}
+
+		cameraInitial = new LatLng(location.getLatitude(),
+				location.getLongitude());
+
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraInitial, 0));
 
 		CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -79,7 +91,7 @@ public class StarDapioActivity extends FragmentActivity {
 				Log.i("mMap", mMap.getCameraPosition().toString());
 				float zoom = position.zoom;
 				if (zoom < mMap.getCameraPosition().zoom) {
-					// 
+					//
 				}
 			}
 		});
@@ -136,8 +148,8 @@ public class StarDapioActivity extends FragmentActivity {
 
 			for (Restaurant r : result) {
 				Marker marker = mMap.addMarker(new MarkerOptions()
-						.position(positions[r.getIdRestaurant() - 1]).title(r.getName())
-						.snippet("Ver Cardapio"));
+						.position(positions[r.getIdRestaurant() - 1])
+						.title(r.getName()).snippet("Ver Cardapio"));
 				markerMap.put(marker, r.getIdRestaurant());
 				Log.i("LOOP", r.getName());
 			}
