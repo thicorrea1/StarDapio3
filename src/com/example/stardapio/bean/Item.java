@@ -2,19 +2,20 @@ package com.example.stardapio.bean;
 
 //Um item do cardapio
 public class Item {
-	private String restaurante;
-	private int id;
-	private String nome;
-	private String preco;
-	private String descricao;
+	private int idItem;
+	private String name;
+	private double price;
+	private String description;
 	private String urlImage;
+	private int idRestaurante;
+	private int idType;
 
 	public Item() {
 	}
 
 	@Override
 	public String toString() {
-		return nome;
+		return name;
 	}
 
 	public String getUrlImage() {
@@ -25,43 +26,51 @@ public class Item {
 		this.urlImage = urlImage;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPreco() {
-		return preco;
+	public double getPrice() {
+		return price;
 	}
 
-	public void setPreco(String preco) {
-		this.preco = preco;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdItem() {
+		return idItem;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdItem(int idItem) {
+		this.idItem = idItem;
 	}
 
-	public String getRestaurante() {
-		return restaurante;
+	public int getIdRestaurante() {
+		return idRestaurante;
 	}
 
-	public void setRestaurante(String restaurante) {
-		this.restaurante = restaurante;
+	public void setIdRestaurante(int idRestaurante) {
+		this.idRestaurante = idRestaurante;
+	}
+
+	public int getIdType() {
+		return idType;
+	}
+
+	public void setIdType(int idType) {
+		this.idType = idType;
 	}
 }

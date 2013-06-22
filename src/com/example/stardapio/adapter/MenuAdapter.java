@@ -72,9 +72,11 @@ public class MenuAdapter extends BaseAdapter {
 
 		Item i = itens.get(posicao);
 
-		holder.tvNome.setText(i.getNome());
-		holder.tvPreco.setText(i.getPreco());
-		holder.tvDescricao.setText(i.getDescricao());
+		holder.tvNome.setText(i.getName());
+		Double priceD = i.getPrice();
+		String price = priceD.toString();
+		holder.tvPreco.setText(price);
+		holder.tvDescricao.setText(i.getDescription());
 
 		String imageUrl = i.getUrlImage();
 

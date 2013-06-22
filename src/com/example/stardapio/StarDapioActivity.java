@@ -51,25 +51,21 @@ public class StarDapioActivity extends FragmentActivity {
 
 		setUpMapIfNeeded();
 
-		// obter localizacao
-		LatLng cameraInitial = new LatLng(-23.570664, -46.645117);
-		// cameraInitial = cameraPosition.target;
-
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		Location location = lm
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		if(location == null) {
 			location = lm
-					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+					.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		}
 
-		cameraInitial = new LatLng(location.getLatitude(),
+		LatLng cameraInitial = new LatLng(location.getLatitude(),
 				location.getLongitude());
 
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraInitial, 0));
 
 		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(cameraInitial).zoom(10).bearing(90).tilt(30).build();
+				.target(cameraInitial).zoom(13).bearing(90).tilt(30).build();
 		mMap.animateCamera(CameraUpdateFactory
 				.newCameraPosition(cameraPosition));
 

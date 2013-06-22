@@ -29,7 +29,7 @@ public class ScreenSlidePageFragment extends Fragment {
 		Bundle args = new Bundle();
 
 		args.putInt(ARG_PAGE, pageNumber);
-		args.putString(ARG_DESCRICAO, item.getDescricao());
+		args.putString(ARG_DESCRICAO, item.getDescription());
 		args.putString(ARG_IMAGE, item.getUrlImage());
 		fragment.setArguments(args);
 

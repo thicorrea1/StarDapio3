@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.stardapio.adapter.MenuAdapter;
@@ -61,6 +62,13 @@ public class CardapioActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cardapio);
+		Button button = (Button) findViewById(R.id.scan_button);
+
+		if (MyApp.getMesa() == null) {
+			((Button) button).setText("Scan");
+		} else {
+			((Button) button).setText("Chamar Garcon..Nao Implementado Yet");
+		}
 		new GetAsync().execute();
 
 	}
@@ -86,7 +94,13 @@ public class CardapioActivity extends ListActivity {
 		startActivity(intent);
 	}
 
-	public void scan(View view) {
-		startActivity(new Intent(this, QRCodeActivity.class));
+	public void scan(View button) {
+		if (MyApp.getMesa() == null) {
+			startActivity(new Intent(this, QRCodeActivity.class));
+			((Button) button).setText("Chamar Garcon..Nao Implementado Yet");
+		} else {
+			// Chamar o garcon ou nao sei oq!!
+		}
+
 	}
 }
