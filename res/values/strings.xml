@@ -4,7 +4,8 @@
     <string name="app_name">StarDapio</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_cardapio">CardapioActivity</string>
+    <string name="title_activity_cardapio">Cardapio</string>
+    <string name="title_activity_type">Menu</string>
     <string name="title_activity_menu_slide">Menu Hahahaha Activity</string>
     <string name="action_previous">Previous</string>
     <string name="action_next">Next</string>

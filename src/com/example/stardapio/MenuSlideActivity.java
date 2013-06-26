@@ -16,12 +16,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.stardapio.bean.Item;
 import com.example.stardapio.fragments.ScreenSlidePageFragment;
 import com.example.stardapio.webservice.RestaurantREST;
+
 //import android.app.Fragment;
 
 public class MenuSlideActivity extends FragmentActivity {
@@ -119,10 +121,13 @@ public class MenuSlideActivity extends FragmentActivity {
 
 			RestaurantREST rest = new RestaurantREST();
 			List<Item> listaItem = null;
-			String id = getIntent().getExtras().getString("idRestaurante");
+			String idRestaurant = getIntent().getExtras().getString(
+					"idRestaurante");
+			String idType = getIntent().getExtras().getString("idType");
+			String idSelect = getIntent().getExtras().getString("idSelect");
 
 			try {
-				listaItem = rest.getListaItem(id);
+				listaItem = rest.getListaItemType(idType, idRestaurant);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -135,11 +140,14 @@ public class MenuSlideActivity extends FragmentActivity {
 
 			itens = result;
 			NUM_PAGES = result.size();
-
+			int id = Integer.valueOf(getIntent().getExtras().getString(
+					"idSelect"));
+			Log.i("IDDDDDD", getIntent().getExtras().getString("idSelect"));
+			mPagerAdapter.setPrimaryItem(mPager, id, mPagerAdapter.instantiateItem(mPager, 2));
 			mPager.setAdapter(mPagerAdapter);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 				mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-	
+
 					@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 					@Override
 					public void onPageSelected(int position) {

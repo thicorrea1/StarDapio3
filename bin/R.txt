@@ -18,8 +18,8 @@ int drawable ic_launcher 0x7f020000
 int drawable scan_button 0x7f020001
 int id action_flip 0x7f040006
 int id action_next 0x7f040005
-int id action_previous 0x7f04001b
-int id action_settings 0x7f04001c
+int id action_previous 0x7f04001d
+int id action_settings 0x7f04001e
 int id base 0x7f04000b
 int id description 0x7f04000d
 int id hybrid 0x7f040004
@@ -44,6 +44,8 @@ int id scan_result 0x7f040017
 int id status_view 0x7f04000a
 int id terrain 0x7f040003
 int id textView1 0x7f040014
+int id type_img 0x7f04001c
+int id type_name 0x7f04001b
 int id viewfinder_view 0x7f040009
 int layout activity_screen_slide 0x7f030000
 int layout capture 0x7f030001
@@ -53,12 +55,14 @@ int layout item_adapter 0x7f030004
 int layout main 0x7f030005
 int layout qrcode 0x7f030006
 int layout restaurant_adapter 0x7f030007
+int layout type 0x7f030008
+int layout type_adapter 0x7f030009
 int menu activity_screen_slide 0x7f080000
 int menu cardapio 0x7f080001
 int menu main 0x7f080002
-int string action_finish 0x7f050018
-int string action_next 0x7f050017
-int string action_previous 0x7f050016
+int string action_finish 0x7f050019
+int string action_next 0x7f050018
+int string action_previous 0x7f050017
 int string action_settings 0x7f050012
 int string app_name 0x7f050011
 int string auth_client_availability_notification_title 0x7f05000e
@@ -79,12 +83,13 @@ int string common_google_play_services_update_text 0x7f050008
 int string common_google_play_services_update_title 0x7f050007
 int string common_signin_button_text_long 0x7f05000d
 int string hello_world 0x7f050013
-int string msg_default_status 0x7f05001c
-int string scan 0x7f050019
-int string scan_qrcode 0x7f05001a
-int string scan_resut_lable 0x7f05001b
+int string msg_default_status 0x7f05001d
+int string scan 0x7f05001a
+int string scan_qrcode 0x7f05001b
+int string scan_resut_lable 0x7f05001c
 int string title_activity_cardapio 0x7f050014
-int string title_activity_menu_slide 0x7f050015
+int string title_activity_menu_slide 0x7f050016
+int string title_activity_type 0x7f050015
 int style AppBaseTheme 0x7f070000
 int style AppTheme 0x7f070001
 int[] styleable MapAttrs { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d }

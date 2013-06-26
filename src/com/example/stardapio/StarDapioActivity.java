@@ -108,7 +108,7 @@ public class StarDapioActivity extends FragmentActivity {
 	}
 
 	private void goCardapio(String id) {
-		Intent intent = new Intent(this, CardapioActivity.class);
+		Intent intent = new Intent(this, TypeActivity.class);
 		intent.putExtra("idRestaurante", id);
 		startActivity(intent);
 	}
@@ -136,103 +136,15 @@ public class StarDapioActivity extends FragmentActivity {
 					.rotateGesturesEnabled(false).tiltGesturesEnabled(false);
 			SupportMapFragment.newInstance(options);
 
-			// arrumar latlng no bd
-			LatLng caraDeFome = new LatLng(-23.570664, -46.645117);
-			LatLng outroRestaurante = new LatLng(-23.568422, -46.647906);
-
-			LatLng[] positions = { caraDeFome, outroRestaurante };
-
 			for (Restaurant r : result) {
 				Marker marker = mMap.addMarker(new MarkerOptions()
-						.position(positions[r.getIdRestaurant() - 1])
+						.position(new LatLng(r.getLat(), r.getLng()))
 						.title(r.getName()).snippet("Ver Cardapio"));
 				markerMap.put(marker, r.getIdRestaurant());
 				Log.i("LOOP", r.getName());
 			}
-			/*
-			 * Marker marker1 = mMap.addMarker(new MarkerOptions()
-			 * .position(caraDeFome).title("Cara de Fome")
-			 * .snippet("Ver Cardapio"));
-			 * 
-			 * Marker marker2 = mMap.addMarker(new MarkerOptions() .position(new
-			 * LatLng(20, 44)).title("Outro Restaurante")
-			 * .snippet("Ver Cardapio"));
-			 * 
-			 * markerMap.put(marker1, 1); markerMap.put(marker2, 2);
-			 */
 		}
 
 	}
 
 }
-
-/*
- * 
- * package com.example.stardapio;
- * 
- * import java.io.File; import java.util.List;
- * 
- * import android.app.ListActivity; import android.app.ProgressDialog; import
- * android.content.Intent; import android.os.AsyncTask; import
- * android.os.Bundle; import android.view.Menu; import android.view.View; import
- * android.widget.ListView; import android.widget.Toast;
- * 
- * import com.example.stardapio.adapter.RestaurantAdapter; import
- * com.example.stardapio.bean.Restaurant; import
- * com.example.stardapio.webservice.RestaurantREST; import
- * com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache; import
- * com.nostra13.universalimageloader.core.ImageLo)aderConfiguration; import
- * com.nostra13.universalimageloader.utils.StorageUtils;
- * 
- * public class StarDapioActivity extends ListActivity {
- * ImageLoaderConfiguration config;
- * 
- * private class GetAsync extends AsyncTask<Void, Void, List<Restaurant>> {
- * 
- * private ProgressDialog dialog;
- * 
- * @Override protected void onPreExecute() { dialog = new
- * ProgressDialog(StarDapioActivity.this); dialog.show(); }
- * 
- * @Override protected List<Restaurant> doInBackground(Void... arg0) {
- * RestaurantREST rest = new RestaurantREST(); List<Restaurant> restaurantes =
- * null; try { restaurantes = rest.getListaRestaurante(); } catch (Exception e)
- * { e.printStackTrace(); } return restaurantes; }
- * 
- * @Override protected void onPostExecute(List<Restaurant> result) { ListView lv
- * = getListView();
- * 
- * RestaurantAdapter adapter = new RestaurantAdapter( getApplicationContext(),
- * result, config);
- * 
- * lv.setAdapter(adapter); dialog.dismiss(); } }
- * 
- * @Override protected void onCreate(Bundle savedInstanceState) {
- * super.onCreate(savedInstanceState); setContentView(R.layout.main);
- * 
- * File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());
- * config = new ImageLoaderConfiguration.Builder(getApplicationContext())
- * .discCache(new UnlimitedDiscCache(cacheDir)).build(); MyApp appConfig =
- * ((MyApp) getApplicationContext()); appConfig.setGlobalConfig(config); new
- * GetAsync().execute(); }
- * 
- * @Override protected void onListRestaurantClick(ListView l, View view, int
- * position, long id) { // Intent intent = new Intent(this,
- * CardapioActivity.class); Intent intent = new Intent(this,
- * MenuSlideActivity.class); String selection =
- * l.getRestaurantAtPosition(position).toString();
- * intent.putExtra("nomeDoRestaurante", selection); // Apenas para depuracao
- * String idRestaurante = String.valueOf(id); Toast.makeText(this,
- * idRestaurante, Toast.LENGTH_LONG).show(); intent.putExtra("idRestaurante",
- * idRestaurante); startActivity(intent); // startActivity(new
- * Intent(StarDapioActivity.this, // MenuSlideActivity.class)); }
- * 
- * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
- * menu; this adds Restaurants to the action bar if it is present.
- * getMenuInflater().inflate(R.menu.main, menu); return true; }
- * 
- * public void startScan(View view) { Intent intent = new Intent(this,
- * QRCodeActivity.class); startActivity(intent); }
- * 
- * }
- */

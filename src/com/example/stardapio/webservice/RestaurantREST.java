@@ -70,5 +70,49 @@ Log.i("ID_RESTAURANTE", idRestaurante);
 			throw new Exception(resposta[1]);
 		}
 	}
+	
 
+	public List<Item> getListaItemType(String idType, String idRestaurant) throws Exception {
+		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "GSON/restaurant/" + idRestaurant + "/type/"
+				+ idType);
+Log.i("ID_RESTAURANTE", idType);
+		if (resposta[0].equals("200")) {
+			Gson gson = new Gson();
+			ArrayList<Item> listaItem;
+			JsonParser parser = new JsonParser();
+			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
+
+			Type collectionType = new TypeToken<List<Item>>() {
+			}.getType();
+			listaItem = gson.fromJson(array, collectionType);
+
+			return listaItem;
+
+		} else {
+			throw new Exception(resposta[1]);
+		}
+
+	}
+	
+	public List<com.example.stardapio.bean.Type> getListaType(String idRestaurante) throws Exception {
+
+		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "types/"
+				+ idRestaurante);
+Log.i("ID_RESTAURANTE", idRestaurante);
+		if (resposta[0].equals("200")) {
+			Gson gson = new Gson();
+			ArrayList<com.example.stardapio.bean.Type> listaType;
+			JsonParser parser = new JsonParser();
+			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
+
+			Type collectionType = new TypeToken<List<com.example.stardapio.bean.Type>>() {
+			}.getType();
+			listaType = gson.fromJson(array, collectionType);
+
+			return listaType;
+
+		} else {
+			throw new Exception(resposta[1]);
+		}
+	}
 }

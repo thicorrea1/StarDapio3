@@ -153,8 +153,8 @@ containing a value of this type.
     
          */
         public static final int action_next=0x7f040005;
-        public static final int action_previous=0x7f04001b;
-        public static final int action_settings=0x7f04001c;
+        public static final int action_previous=0x7f04001d;
+        public static final int action_settings=0x7f04001e;
         public static final int base=0x7f04000b;
         public static final int description=0x7f04000d;
         public static final int hybrid=0x7f040004;
@@ -179,6 +179,8 @@ containing a value of this type.
         public static final int status_view=0x7f04000a;
         public static final int terrain=0x7f040003;
         public static final int textView1=0x7f040014;
+        public static final int type_img=0x7f04001c;
+        public static final int type_name=0x7f04001b;
         public static final int viewfinder_view=0x7f040009;
     }
     public static final class layout {
@@ -190,6 +192,8 @@ containing a value of this type.
         public static final int main=0x7f030005;
         public static final int qrcode=0x7f030006;
         public static final int restaurant_adapter=0x7f030007;
+        public static final int type=0x7f030008;
+        public static final int type_adapter=0x7f030009;
     }
     public static final class menu {
         public static final int activity_screen_slide=0x7f080000;
@@ -197,9 +201,9 @@ containing a value of this type.
         public static final int main=0x7f080002;
     }
     public static final class string {
-        public static final int action_finish=0x7f050018;
-        public static final int action_next=0x7f050017;
-        public static final int action_previous=0x7f050016;
+        public static final int action_finish=0x7f050019;
+        public static final int action_next=0x7f050018;
+        public static final int action_previous=0x7f050017;
         public static final int action_settings=0x7f050012;
         public static final int app_name=0x7f050011;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
@@ -265,12 +269,13 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f05000d;
         public static final int hello_world=0x7f050013;
-        public static final int msg_default_status=0x7f05001c;
-        public static final int scan=0x7f050019;
-        public static final int scan_qrcode=0x7f05001a;
-        public static final int scan_resut_lable=0x7f05001b;
+        public static final int msg_default_status=0x7f05001d;
+        public static final int scan=0x7f05001a;
+        public static final int scan_qrcode=0x7f05001b;
+        public static final int scan_resut_lable=0x7f05001c;
         public static final int title_activity_cardapio=0x7f050014;
-        public static final int title_activity_menu_slide=0x7f050015;
+        public static final int title_activity_menu_slide=0x7f050016;
+        public static final int title_activity_type=0x7f050015;
     }
     public static final class style {
         /** 

@@ -13,44 +13,43 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.stardapio.adapter.MenuAdapter;
-import com.example.stardapio.bean.Item;
+import com.example.stardapio.adapter.TypeAdapter;
+import com.example.stardapio.bean.Type;
 import com.example.stardapio.webservice.RestaurantREST;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-public class CardapioActivity extends ListActivity {
+public class TypeActivity extends ListActivity {
 	ImageLoaderConfiguration config;
 
-	private class GetAsync extends AsyncTask<Void, Void, List<Item>> {
+	private class GetAsync extends AsyncTask<Void, Void, List<Type>> {
 
 		private ProgressDialog dialog;
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(CardapioActivity.this);
+			dialog = new ProgressDialog(TypeActivity.this);
 			dialog.show();
 		}
 
 		@Override
-		protected List<Item> doInBackground(Void... arg0) {
+		protected List<Type> doInBackground(Void... arg0) {
 			RestaurantREST rest = new RestaurantREST();
-			List<Item> itens = null;
-			String idType = getIntent().getExtras().getString("idType");
-			String idRestaurant = getIntent().getExtras().getString("idRestaurante");
-			Log.i("ID_TYPE", idType);
+			List<Type> types = null;
+			String id = getIntent().getExtras().getString("idRestaurante");
+			Log.i("ID_RESTAURANTE_ACTIVITY", id);
 			try {
-				itens = rest.getListaItemType(idType, idRestaurant);
+				types = rest.getListaType(id);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return itens;
+			return types;
 		}
 
 		@Override
-		protected void onPostExecute(List<Item> result) {
+		protected void onPostExecute(List<Type> result) {
 			ListView lv = getListView();
 
-			MenuAdapter adapter = new MenuAdapter(getApplicationContext(),
+			TypeAdapter adapter = new TypeAdapter(getApplicationContext(),
 					result, config);
 
 			lv.setAdapter(adapter);
@@ -62,7 +61,7 @@ public class CardapioActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.cardapio);
+		setContentView(R.layout.type);
 		Button button = (Button) findViewById(R.id.scan_button);
 
 		if (MyApp.getMesa() == null) {
@@ -76,26 +75,16 @@ public class CardapioActivity extends ListActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.cardapio, menu);
 		return true;
 	}
 
 	protected void onListItemClick(ListView l, View view, int position, long id) {
-		Intent intent = new Intent(this, MenuSlideActivity.class);
-		String idSelect = String.valueOf(id);
+		Intent intent = new Intent(this, CardapioActivity.class);
+		String idType = String.valueOf(id);
+		Log.i("long id", idType);
+		intent.putExtra("idType", idType);
 		intent.putExtra("idRestaurante", getIntent().getExtras().getString("idRestaurante"));
-		intent.putExtra("idType", getIntent().getExtras().getString("idType"));
-		intent.putExtra("idSelect", idSelect);
 		startActivity(intent);
-	}
-
-	public void scan(View button) {
-		if (MyApp.getMesa() == null) {
-			startActivity(new Intent(this, QRCodeActivity.class));
-			((Button) button).setText("Chamar Garcon..Nao Implementado Yet");
-		} else {
-			// Chamar o garcon ou nao sei oq!!
-		}
 	}
 }

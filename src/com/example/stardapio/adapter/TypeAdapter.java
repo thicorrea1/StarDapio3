@@ -11,78 +11,67 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.stardapio.R;
-import com.example.stardapio.bean.Item;
+import com.example.stardapio.bean.Type;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-public class MenuAdapter extends BaseAdapter {
-	private List<Item> itens;
+public class TypeAdapter extends BaseAdapter{
+	private List<Type> types;
 	private LayoutInflater mInflater;
 	private ViewHolder holder;
 	private ImageLoader imageLoader;
 
 	static class ViewHolder {
-		private TextView tvNome;
-		private TextView tvDescricao;
-		private TextView tvPreco;
+		private TextView tvName;
 		private ImageView img;
 	}
 
-	public MenuAdapter(Context context, List<Item> itens,
+	public TypeAdapter(Context context, List<Type> types,
 			ImageLoaderConfiguration config) {
 		mInflater = LayoutInflater.from(context);
-		this.itens = itens;
+		this.types = types;
 		imageLoader = ImageLoader.getInstance();
 		
 	}
 
 	@Override
 	public int getCount() {
-		return itens.size();
+		return types.size();
 	}
 
 	@Override
 	public Object getItem(int index) {
-		return itens.get(index);
+		return types.get(index);
 	}
 
 	@Override
 	public long getItemId(int index) {
-		return itens.get(index).getIdItem();
+		return types.get(index).getId_type();
 	}
 
 	@Override
 	public View getView(int posicao, View convertView, ViewGroup arg2) {
 
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.item_adapter, null);
+			convertView = mInflater.inflate(R.layout.type_adapter, null);
 			holder = new ViewHolder();
 
-			holder.tvNome = (TextView) convertView.findViewById(R.id.item_nome);
-			holder.tvPreco = (TextView) convertView
-					.findViewById(R.id.item_preco);
-			holder.tvDescricao = (TextView) convertView
-					.findViewById(R.id.item_descricao);
-			holder.img = (ImageView) convertView.findViewById(R.id.item_img);
+			holder.tvName = (TextView) convertView.findViewById(R.id.type_name);
+			holder.img = (ImageView) convertView.findViewById(R.id.type_img);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		Item i = itens.get(posicao);
+		Type i = types.get(posicao);
 
-		holder.tvNome.setText(i.getName());
-		Double priceD = i.getPrice();
-		String price = priceD.toString();
-		holder.tvPreco.setText(price);
-		holder.tvDescricao.setText(i.getDescription());
-
+		holder.tvName.setText(i.getType());
+		
 		String imageUrl = i.getUrlImage();
 
 		imageLoader.displayImage(imageUrl, holder.img);
 
 		return convertView;
 	}
-
 }
