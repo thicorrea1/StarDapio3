@@ -23,7 +23,7 @@ public class MenuAdapter extends BaseAdapter {
 
 	static class ViewHolder {
 		private TextView tvNome;
-		private TextView tvDescricao;
+		//private TextView tvDescricao;
 		private TextView tvPreco;
 		private ImageView img;
 	}
@@ -61,8 +61,8 @@ public class MenuAdapter extends BaseAdapter {
 			holder.tvNome = (TextView) convertView.findViewById(R.id.item_nome);
 			holder.tvPreco = (TextView) convertView
 					.findViewById(R.id.item_preco);
-			holder.tvDescricao = (TextView) convertView
-					.findViewById(R.id.item_descricao);
+			//holder.tvDescricao = (TextView) convertView
+				//	.findViewById(R.id.item_descricao);
 			holder.img = (ImageView) convertView.findViewById(R.id.item_img);
 
 			convertView.setTag(holder);
@@ -75,8 +75,8 @@ public class MenuAdapter extends BaseAdapter {
 		holder.tvNome.setText(i.getName());
 		Double priceD = i.getPrice();
 		String price = priceD.toString();
-		holder.tvPreco.setText(price);
-		holder.tvDescricao.setText(i.getDescription());
+		holder.tvPreco.setText("R$ " + price);
+		//holder.tvDescricao.setText(i.getDescription());
 
 		String imageUrl = i.getUrlImage();
 

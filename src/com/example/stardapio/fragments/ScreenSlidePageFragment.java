@@ -16,19 +16,25 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class ScreenSlidePageFragment extends Fragment {
 
 	public static final String ARG_PAGE = "page";
+	private static final String ARG_PRICE = "price";
+	private static final String ARG_NAME = "name";
 	public static final String ARG_DESCRICAO = "descricao";
 	public static final String ARG_IMAGE = "image";
 
 	private int mPageNumber;
+	private String mPrice;
+	private String mName;
 	private String mDescricao;
 	private String mUrlImage;
-	
+
 	public static ScreenSlidePageFragment create(int pageNumber, Item item) {
 
 		ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
 		Bundle args = new Bundle();
 
 		args.putInt(ARG_PAGE, pageNumber);
+		args.putString(ARG_PRICE, String.valueOf(item.getPrice()));
+		args.putString(ARG_NAME, item.getName());
 		args.putString(ARG_DESCRICAO, item.getDescription());
 		args.putString(ARG_IMAGE, item.getUrlImage());
 		fragment.setArguments(args);
@@ -43,6 +49,8 @@ public class ScreenSlidePageFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mPageNumber = getArguments().getInt(ARG_PAGE);
+		mPrice = getArguments().getString(ARG_PRICE);
+		mName = getArguments().getString(ARG_NAME);
 		mDescricao = getArguments().getString(ARG_DESCRICAO);
 		mUrlImage = getArguments().getString(ARG_IMAGE);
 	}
@@ -54,13 +62,19 @@ public class ScreenSlidePageFragment extends Fragment {
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
 				R.layout.fragment_screen_slide_page, container, false);
 
-		((TextView) rootView.findViewById(android.R.id.text1))
-				.setText(mDescricao);
-
 		ImageView imageView = (ImageView) rootView.findViewById(R.id.image);
 		ImageLoader imageLoader = ImageLoader.getInstance();
 
 		imageLoader.displayImage(mUrlImage, imageView);
+		
+		((TextView) rootView.findViewById(android.R.id.text1))
+				.setText(mName);
+		
+		((TextView) rootView.findViewById(R.id.price))
+				.setText("R$ " + mPrice);
+
+		((TextView) rootView.findViewById(R.id.description))
+				.setText(mDescricao);
 
 		return rootView;
 	}

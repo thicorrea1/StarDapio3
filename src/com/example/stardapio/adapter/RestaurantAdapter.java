@@ -25,7 +25,6 @@ public class RestaurantAdapter extends BaseAdapter {
 	static class ViewHolder {
 		private TextView tvNome;
 		private TextView tvEnd;
-		private ImageView img;
 	}
 
 	public RestaurantAdapter(Context context, List<Restaurant> restaurants,
@@ -62,8 +61,6 @@ public class RestaurantAdapter extends BaseAdapter {
 					.findViewById(R.id.restaurante_nome);
 			holder.tvEnd = (TextView) convertView
 					.findViewById(R.id.restaurante_endereco);
-			holder.img = (ImageView) convertView
-					.findViewById(R.id.restaurante_img);
 
 			convertView.setTag(holder);
 		} else {
