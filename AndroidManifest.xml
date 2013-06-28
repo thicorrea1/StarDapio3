@@ -45,6 +45,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.stardapio.TypesActivity"
+            android:label="@string/title_activity_type" >
+        </activity>
+        <activity
             android:name="com.example.stardapio.TypeActivity"
             android:label="@string/title_activity_type" >
         </activity>

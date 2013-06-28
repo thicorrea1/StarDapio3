@@ -1,6 +1,5 @@
 package com.example.stardapio;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,10 +24,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.utils.StorageUtils;
 
 public class StarDapioActivity extends FragmentActivity {
 
@@ -43,20 +41,19 @@ public class StarDapioActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());
+		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+				.cacheInMemory().cacheOnDisc().build();
 		config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-				.discCache(new UnlimitedDiscCache(cacheDir)).build();
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(config);
+				.defaultDisplayImageOptions(defaultOptions).build();
+		ImageLoader.getInstance().init(config);
 
 		setUpMapIfNeeded();
 
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		Location location = lm
 				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		if(location == null) {
-			location = lm
-					.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (location == null) {
+			location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		}
 
 		LatLng cameraInitial = new LatLng(location.getLatitude(),
@@ -108,7 +105,8 @@ public class StarDapioActivity extends FragmentActivity {
 	}
 
 	private void goCardapio(String id) {
-		Intent intent = new Intent(this, TypeActivity.class);
+		// Intent intent = new Intent(this, TypeActivity.class);
+		Intent intent = new Intent(this, TypesActivity.class);
 		intent.putExtra("idRestaurante", id);
 		startActivity(intent);
 	}

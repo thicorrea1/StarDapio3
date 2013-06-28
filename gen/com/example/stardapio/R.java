@@ -155,10 +155,11 @@ containing a value of this type.
     
          */
         public static final int action_next=0x7f040005;
-        public static final int action_previous=0x7f04001d;
-        public static final int action_settings=0x7f04001e;
+        public static final int action_previous=0x7f04001e;
+        public static final int action_settings=0x7f04001f;
         public static final int base=0x7f04000b;
         public static final int description=0x7f04000f;
+        public static final int expandableType=0x7f04001d;
         public static final int hybrid=0x7f040004;
         public static final int image=0x7f04000e;
         public static final int info=0x7f040016;
@@ -196,6 +197,7 @@ containing a value of this type.
         public static final int restaurant_adapter=0x7f030007;
         public static final int type=0x7f030008;
         public static final int type_adapter=0x7f030009;
+        public static final int types=0x7f03000a;
     }
     public static final class menu {
         public static final int activity_screen_slide=0x7f080000;
