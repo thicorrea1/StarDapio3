@@ -124,7 +124,6 @@ public class MenuSlideActivity extends FragmentActivity {
 			String idRestaurant = getIntent().getExtras().getString(
 					"idRestaurante");
 			String idType = getIntent().getExtras().getString("idType");
-			String idSelect = getIntent().getExtras().getString("idSelect");
 
 			try {
 				listaItem = rest.getListaItemType(idType, idRestaurant);
@@ -140,10 +139,6 @@ public class MenuSlideActivity extends FragmentActivity {
 
 			itens = result;
 			NUM_PAGES = result.size();
-			int id = Integer.valueOf(getIntent().getExtras().getString(
-					"idSelect"));
-			Log.i("IDDDDDD", getIntent().getExtras().getString("idSelect"));
-			mPagerAdapter.setPrimaryItem(mPager, id, mPagerAdapter.instantiateItem(mPager, 2));
 			mPager.setAdapter(mPagerAdapter);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 				mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {

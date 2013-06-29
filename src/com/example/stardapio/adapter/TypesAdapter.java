@@ -13,15 +13,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.stardapio.bean.ContainerTypeAndSubType;
 import com.example.stardapio.bean.SubType;
 import com.example.stardapio.bean.Type;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TypesAdapter extends BaseExpandableListAdapter {
 
+	private List<Type> types;
+	private List<List<SubType>> subTypes;
 	private ImageLoader imageLoader;
 	private Activity activity;
-	private Type typeA = new Type();
+	/*private Type typeA = new Type();
 	private Type typeB = new Type();
 	public List<Type> types = new ArrayList<Type>();
 	private SubType subTypeA = new SubType(typeA);
@@ -31,9 +34,10 @@ public class TypesAdapter extends BaseExpandableListAdapter {
 	private SubType subTypeE = new SubType(typeB);
 	public SubType[][] subTypes = new SubType[][] { { subTypeA, subTypeB },
 			{ subTypeC, subTypeD, subTypeE } };
-
-	public TypesAdapter(Activity activity) {
+*/
+	public TypesAdapter(Activity activity, ContainerTypeAndSubType container) {
 		this.activity = activity;
+		/*
 		types.add(typeA);
 		types.add(typeB);
 		typeA.setName("Massas");
@@ -51,25 +55,27 @@ public class TypesAdapter extends BaseExpandableListAdapter {
 		subTypeD.setId_type(2);
 		subTypeE.setName("Sucos");
 		subTypeE.setId_type(2);
-
+*/
+		this.types = container.getTypes();
+		this.subTypes = container.getSubTypes();
 		imageLoader = ImageLoader.getInstance();
 	}
 
 	@Override
-	public Object getChild(int groupPosition, int childPostition) {
-		return subTypes[groupPosition][childPostition];
+	public Object getChild(int groupPosition, int childPosition) {
+		return subTypes.get(groupPosition).get(childPosition);
 	}
 
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
-		return subTypes[groupPosition][childPosition].getId_type();
+		return subTypes.get(groupPosition).get(childPosition).getId_type();
 	}
 
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		TextView txt = new TextView(activity);
-		txt.setText(subTypes[groupPosition][childPosition].getName());
+		TextView txt = new TextView(this.activity);
+		txt.setText(subTypes.get(groupPosition).get(childPosition).getName());
 		txt.setPadding(10, 0, 0, 0);
 		txt.setTextSize(30);
 		return txt;
@@ -77,7 +83,7 @@ public class TypesAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return subTypes[groupPosition].length;
+		return subTypes.get(groupPosition).size();
 	}
 
 	@Override
@@ -100,15 +106,15 @@ public class TypesAdapter extends BaseExpandableListAdapter {
 			View convertView, ViewGroup parent) {
 
 		ImageView img = new ImageView(this.activity);
-		img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+		img.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.MATCH_PARENT));
 		imageLoader.displayImage(types.get(groupPosition).getUrlImage(), img);
 
 		TextView txt = new TextView(this.activity);
 		txt.setText(types.get(groupPosition).getName());
-		
+
 		txt.setTextSize(30);
-		txt.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+		txt.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD_ITALIC);
 
 		RelativeLayout relativeLayout = new RelativeLayout(this.activity);
 

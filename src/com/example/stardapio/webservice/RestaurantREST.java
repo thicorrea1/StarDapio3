@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.util.Log;
 
+import com.example.stardapio.bean.ContainerTypeAndSubType;
 import com.example.stardapio.bean.Item;
 import com.example.stardapio.bean.Restaurant;
 import com.google.gson.Gson;
@@ -110,6 +111,28 @@ Log.i("ID_RESTAURANTE", idRestaurante);
 			listaType = gson.fromJson(array, collectionType);
 
 			return listaType;
+
+		} else {
+			throw new Exception(resposta[1]);
+		}
+	}
+
+	public ContainerTypeAndSubType getListaTypeAndSubType(
+			String idRestaurante) throws Exception {
+		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "container/"
+				+ idRestaurante);
+Log.i("ID_RESTAURANTE", idRestaurante);
+		if (resposta[0].equals("200")) {
+			Gson gson = new Gson();
+			ContainerTypeAndSubType container;
+			JsonParser parser = new JsonParser();
+			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
+
+			Type collectionType = new TypeToken<List<com.example.stardapio.bean.Type>>() {
+			}.getType();
+			container = gson.fromJson(array, collectionType);
+
+			return container;
 
 		} else {
 			throw new Exception(resposta[1]);
