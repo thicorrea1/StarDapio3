@@ -24,41 +24,24 @@ public class TypesAdapter extends BaseExpandableListAdapter {
 	private List<List<SubType>> subTypes;
 	private ImageLoader imageLoader;
 	private Activity activity;
-	/*private Type typeA = new Type();
-	private Type typeB = new Type();
-	public List<Type> types = new ArrayList<Type>();
-	private SubType subTypeA = new SubType(typeA);
-	private SubType subTypeB = new SubType(typeA);
-	private SubType subTypeC = new SubType(typeB);
-	private SubType subTypeD = new SubType(typeB);
-	private SubType subTypeE = new SubType(typeB);
-	public SubType[][] subTypes = new SubType[][] { { subTypeA, subTypeB },
-			{ subTypeC, subTypeD, subTypeE } };
-*/
+
 	public TypesAdapter(Activity activity, ContainerTypeAndSubType container) {
 		this.activity = activity;
-		/*
-		types.add(typeA);
-		types.add(typeB);
-		typeA.setName("Massas");
-		typeA.setUrlImage("http://www.restauranteamerica.com.br/templates/img/cardapio/banner-pasta-e-cia.jpg");
-		typeB.setName("Bebidas");
-		typeB.setUrlImage("http://www.restauranteamerica.com.br/templates/img/cardapio/banner-bebidas.jpg");
-
-		subTypeA.setName("Espaguete");
-		subTypeA.setId_type(1);
-		subTypeB.setName("Penne");
-		subTypeB.setId_type(1);
-		subTypeC.setName("Refrigerante");
-		subTypeC.setId_type(2);
-		subTypeD.setName("Refrigerante Diet");
-		subTypeD.setId_type(2);
-		subTypeE.setName("Sucos");
-		subTypeE.setId_type(2);
-*/
 		this.types = container.getTypes();
-		this.subTypes = container.getSubTypes();
+		organizeTypes(container.getTypes(), container.getSubTypes());
 		imageLoader = ImageLoader.getInstance();
+	}
+
+	private void organizeTypes(List<Type> types2, List<SubType> subTypes2) {
+		for (Type t : types2) {
+			ArrayList<SubType> aux = new ArrayList<SubType>();
+			for (SubType st : subTypes2) {
+				if (t.getId_type() == st.getId_type()) {
+					aux.add(st);
+				}
+			}
+			subTypes.add(aux);
+		}
 	}
 
 	@Override

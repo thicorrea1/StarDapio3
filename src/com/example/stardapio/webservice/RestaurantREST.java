@@ -17,15 +17,21 @@ import com.google.gson.reflect.TypeToken;
 public class RestaurantREST {
 	private static final String URL_WSRESTAURANTE = "http://stardapio.zapto.org/StarDapioREST/restaurante/";
 	private static final String URL_WSMENU = "http://stardapio.zapto.org/StarDapioREST/menu/";
-	
-	//private static final String URL_WSRESTAURANTE = "http://192.168.1.32:8081/StarDapioREST/restaurante/";
-	//private static final String URL_WSMENU = "http://192.168.1.32:8081/StarDapioREST/menu/";
-	
-	//private static final String URL_WSRESTAURANTE = "http://192.168.1.33:8080/StarDapioREST/restaurante/";
-	//private static final String URL_WSMENU = "http://192.168.1.33:8080/StarDapioREST/menu/";
 
-	//private static final String URL_WSRESTAURANTE = "http://10.0.2.2:8080/StarDapioREST/restaurante/";
-	//private static final String URL_WSMENU = "http://10.0.2.2:8080/StarDapioREST/menu/";
+	// private static final String URL_WSRESTAURANTE =
+	// "http://192.168.1.32:8081/StarDapioREST/restaurante/";
+	// private static final String URL_WSMENU =
+	// "http://192.168.1.32:8081/StarDapioREST/menu/";
+
+	// private static final String URL_WSRESTAURANTE =
+	// "http://192.168.1.33:8080/StarDapioREST/restaurante/";
+	// private static final String URL_WSMENU =
+	// "http://192.168.1.33:8080/StarDapioREST/menu/";
+
+	// private static final String URL_WSRESTAURANTE =
+	// "http://10.0.2.2:8080/StarDapioREST/restaurante/";
+	// private static final String URL_WSMENU =
+	// "http://10.0.2.2:8080/StarDapioREST/menu/";
 
 	public List<Restaurant> getListaRestaurante() throws Exception {
 
@@ -54,7 +60,7 @@ public class RestaurantREST {
 
 		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "GSON/"
 				+ idRestaurante);
-Log.i("ID_RESTAURANTE", idRestaurante);
+		Log.i("ID_RESTAURANTE", idRestaurante);
 		if (resposta[0].equals("200")) {
 			Gson gson = new Gson();
 			ArrayList<Item> listaItem;
@@ -71,12 +77,12 @@ Log.i("ID_RESTAURANTE", idRestaurante);
 			throw new Exception(resposta[1]);
 		}
 	}
-	
 
-	public List<Item> getListaItemType(String idType, String idRestaurant) throws Exception {
-		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "GSON/restaurant/" + idRestaurant + "/type/"
-				+ idType);
-Log.i("ID_RESTAURANTE", idType);
+	public List<Item> getListaItemType(String idType, String idRestaurant)
+			throws Exception {
+		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU
+				+ "GSON/restaurant/" + idRestaurant + "/type/" + idType);
+		Log.i("ID_RESTAURANTE", idType);
 		if (resposta[0].equals("200")) {
 			Gson gson = new Gson();
 			ArrayList<Item> listaItem;
@@ -94,12 +100,13 @@ Log.i("ID_RESTAURANTE", idType);
 		}
 
 	}
-	
-	public List<com.example.stardapio.bean.Type> getListaType(String idRestaurante) throws Exception {
 
-		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "types/"
-				+ idRestaurante);
-Log.i("ID_RESTAURANTE", idRestaurante);
+	public List<com.example.stardapio.bean.Type> getListaType(
+			String idRestaurante) throws Exception {
+
+		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU
+				+ "types/" + idRestaurante);
+		Log.i("ID_RESTAURANTE", idRestaurante);
 		if (resposta[0].equals("200")) {
 			Gson gson = new Gson();
 			ArrayList<com.example.stardapio.bean.Type> listaType;
@@ -117,11 +124,11 @@ Log.i("ID_RESTAURANTE", idRestaurante);
 		}
 	}
 
-	public ContainerTypeAndSubType getListaTypeAndSubType(
-			String idRestaurante) throws Exception {
-		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU + "container/"
-				+ idRestaurante);
-Log.i("ID_RESTAURANTE", idRestaurante);
+	public ContainerTypeAndSubType getListaTypeAndSubType(String idRestaurante)
+			throws Exception {
+		String[] resposta = new WebServiceRestaurant().get(URL_WSMENU
+				+ "GSON/subtypes/restaurant/" + idRestaurante);
+		Log.i("ID_RESTAURANTE", idRestaurante);
 		if (resposta[0].equals("200")) {
 			Gson gson = new Gson();
 			ContainerTypeAndSubType container;

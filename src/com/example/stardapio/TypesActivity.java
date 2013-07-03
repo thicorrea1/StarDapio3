@@ -1,7 +1,5 @@
 package com.example.stardapio;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,15 +7,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.stardapio.adapter.TypeAdapter;
 import com.example.stardapio.adapter.TypesAdapter;
 import com.example.stardapio.bean.ContainerTypeAndSubType;
-import com.example.stardapio.bean.Type;
 import com.example.stardapio.webservice.RestaurantREST;
 
 public class TypesActivity extends Activity {
@@ -29,6 +24,15 @@ public class TypesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.types);
 
+		Button button = (Button) findViewById(R.id.scan_button);
+
+		if (MyApp.getMesa() == null) {
+			((Button) button).setText("Scan");
+		} else {
+			((Button) button).setText("Chamar Garcon..Nao Implementado Yet");
+		}
+		new GetAsync().execute();
+
 		activity = this;
 		eListView
 				.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -36,9 +40,14 @@ public class TypesActivity extends Activity {
 					@Override
 					public boolean onGroupClick(ExpandableListView parent,
 							View v, int groupPosition, long id) {
-						Toast.makeText(getApplicationContext(),
-								adapter.getGroup(groupPosition).toString(),
-								Toast.LENGTH_SHORT).show();
+						if (noChild()) {
+							goMenuslide(id);
+						}
+						return false;
+					}
+
+					private boolean noChild() {
+
 						return false;
 					}
 				});
@@ -50,17 +59,24 @@ public class TypesActivity extends Activity {
 					public boolean onChildClick(ExpandableListView parent,
 							View v, int groupPosition, int childPosition,
 							long id) {
-						Intent intent = new Intent(getApplicationContext(), MenuSlideActivity.class);
-						String idType = String.valueOf(id);
-						intent.putExtra("idRestaurante", getIntent().getExtras().getString("idRestaurante"));
-						intent.putExtra("idType", idType);
-						startActivity(intent);
+						goMenuslide(id);
 						return false;
 					}
 				});
 	}
-	
-	private class GetAsync extends AsyncTask<Void, Void, ContainerTypeAndSubType> {
+
+	protected void goMenuslide(long id) {
+		Intent intent = new Intent(getApplicationContext(),
+				MenuSlideActivity.class);
+		String idType = String.valueOf(id);
+		intent.putExtra("idRestaurante",
+				getIntent().getExtras().getString("idRestaurante"));
+		intent.putExtra("idType", idType);
+		startActivity(intent);
+	}
+
+	private class GetAsync extends
+			AsyncTask<Void, Void, ContainerTypeAndSubType> {
 
 		private ProgressDialog dialog;
 

@@ -1,17 +1,13 @@
 package com.example.stardapio.bean;
 
 public class SubType extends Type {
-	private Type groupType;
-	
-	public SubType(Type type) {
-		groupType = type;
-	}
+    private int idSubType;
 
-	public Type getGroupType() {
-		return groupType;
-	}
+    public int getidSubType() {
+            return idSubType;
+    }
 
-	public void setGroupType(Type groupType) {
-		this.groupType = groupType;
-	}
+    public void setidSubType(int idSubType) {
+            this.idSubType = idSubType;
+    }
 }
