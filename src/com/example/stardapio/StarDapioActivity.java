@@ -62,7 +62,7 @@ public class StarDapioActivity extends FragmentActivity {
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraInitial, 0));
 
 		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(cameraInitial).zoom(13).bearing(90).tilt(30).build();
+				.target(cameraInitial).zoom(10).bearing(90).tilt(30).build();
 		mMap.animateCamera(CameraUpdateFactory
 				.newCameraPosition(cameraPosition));
 

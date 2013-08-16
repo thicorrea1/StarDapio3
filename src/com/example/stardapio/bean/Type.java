@@ -5,18 +5,9 @@ public class Type {
 	private String type;
 	private int id_restaurant;
 	private String name;
-	private String urlImage;
-	
+
 	public String toString() {
 		return name;
-	}
-
-	public String getUrlImage() {
-		return urlImage;
-	}
-
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
 	}
 
 	public int getId_restaurant() {

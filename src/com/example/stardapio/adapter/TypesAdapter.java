@@ -7,35 +7,32 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.stardapio.bean.ContainerTypeAndSubType;
 import com.example.stardapio.bean.SubType;
 import com.example.stardapio.bean.Type;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TypesAdapter extends BaseExpandableListAdapter {
 
 	private List<Type> types;
 	private List<List<SubType>> subTypes;
-	private ImageLoader imageLoader;
 	private Activity activity;
 
 	public TypesAdapter(Activity activity, ContainerTypeAndSubType container) {
 		this.activity = activity;
 		this.types = container.getTypes();
 		organizeTypes(container.getTypes(), container.getSubTypes());
-		imageLoader = ImageLoader.getInstance();
 	}
 
 	private void organizeTypes(List<Type> types2, List<SubType> subTypes2) {
+		subTypes = new ArrayList<List<SubType>>();
 		for (Type t : types2) {
 			ArrayList<SubType> aux = new ArrayList<SubType>();
 			for (SubType st : subTypes2) {
+				// Log.i("DESESPERO", st.getId_type() + "/" + t.getId_type());
 				if (t.getId_type() == st.getId_type()) {
 					aux.add(st);
 				}
@@ -58,7 +55,7 @@ public class TypesAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		TextView txt = new TextView(this.activity);
-		txt.setText(subTypes.get(groupPosition).get(childPosition).getName());
+		txt.setText(subTypes.get(groupPosition).get(childPosition).getType());
 		txt.setPadding(10, 0, 0, 0);
 		txt.setTextSize(30);
 		return txt;
@@ -88,21 +85,16 @@ public class TypesAdapter extends BaseExpandableListAdapter {
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
 
-		ImageView img = new ImageView(this.activity);
-		img.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.MATCH_PARENT));
-		imageLoader.displayImage(types.get(groupPosition).getUrlImage(), img);
-
 		TextView txt = new TextView(this.activity);
-		txt.setText(types.get(groupPosition).getName());
+		txt.setText(types.get(groupPosition).getType());
 
 		txt.setTextSize(30);
 		txt.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD_ITALIC);
+		txt.setPadding(30, 0, 0, 0);
 
 		RelativeLayout relativeLayout = new RelativeLayout(this.activity);
 
 		relativeLayout.addView(txt);
-		relativeLayout.addView(img);
 
 		return relativeLayout;
 	}

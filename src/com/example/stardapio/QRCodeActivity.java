@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 public class QRCodeActivity extends Activity {
 	private Handler handler = new Handler();
@@ -48,9 +47,8 @@ public class QRCodeActivity extends Activity {
 					@Override
 					public void run() {
 						// txtScanResult.setText(result);
-						MyApp myApp = MyApp.getInstance();
-						myApp.setMesa(result);
-						Log.i("MESA NUMERO =>", myApp.getMesa());
+						MyApp.setMesa(result);
+						Log.i("MESA NUMERO =>", MyApp.getMesa());
 					}
 				});
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();

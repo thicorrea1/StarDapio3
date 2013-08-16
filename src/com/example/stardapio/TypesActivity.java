@@ -29,10 +29,11 @@ public class TypesActivity extends Activity {
 		if (MyApp.getMesa() == null) {
 			((Button) button).setText("Scan");
 		} else {
-			((Button) button).setText("Chamar Garcon..Nao Implementado Yet");
+			((Button) button).setText("Mesa " + MyApp.getMesa());
 		}
 		new GetAsync().execute();
 
+		eListView = (ExpandableListView) findViewById(R.id.expandableType);
 		activity = this;
 		eListView
 				.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -40,14 +41,13 @@ public class TypesActivity extends Activity {
 					@Override
 					public boolean onGroupClick(ExpandableListView parent,
 							View v, int groupPosition, long id) {
-						if (noChild()) {
-							goMenuslide(id);
+						// Log.i("TAG", noChild() + "");
+						if (adapter.getChildrenCount(groupPosition) == 0) {
+							Log.i("TAG", "NOCHILD");
+							goMenuSlide(id);
+						} else {
+							Log.i("TAG", "HASCHILD");
 						}
-						return false;
-					}
-
-					private boolean noChild() {
-
 						return false;
 					}
 				});
@@ -59,13 +59,13 @@ public class TypesActivity extends Activity {
 					public boolean onChildClick(ExpandableListView parent,
 							View v, int groupPosition, int childPosition,
 							long id) {
-						goMenuslide(id);
+						goMenuSlide(id);
 						return false;
 					}
 				});
 	}
 
-	protected void goMenuslide(long id) {
+	protected void goMenuSlide(long id) {
 		Intent intent = new Intent(getApplicationContext(),
 				MenuSlideActivity.class);
 		String idType = String.valueOf(id);
@@ -73,6 +73,11 @@ public class TypesActivity extends Activity {
 				getIntent().getExtras().getString("idRestaurante"));
 		intent.putExtra("idType", idType);
 		startActivity(intent);
+	}
+	
+	public void scan(View button) {		
+			startActivity(new Intent(this, QRCodeActivity.class));
+			((Button) button).setText("Mesa " + MyApp.getMesa());
 	}
 
 	private class GetAsync extends
@@ -102,8 +107,7 @@ public class TypesActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(ContainerTypeAndSubType result) {
-
-			eListView = (ExpandableListView) findViewById(R.id.expandableType);
+			Log.i("RESULT", result.toString());
 			adapter = new TypesAdapter(activity, result);
 			eListView.setAdapter(adapter);
 			dialog.dismiss();

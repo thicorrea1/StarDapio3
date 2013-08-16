@@ -19,6 +19,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.stardapio.bean.Item;
 import com.example.stardapio.fragments.ScreenSlidePageFragment;
@@ -103,6 +105,22 @@ public class MenuSlideActivity extends FragmentActivity {
 		@Override
 		public int getCount() {
 			return NUM_PAGES;
+		}
+	}
+
+	public void adicionar(View view) {
+		if ((MyApp.getMesa() != null) && Integer.parseInt(MyApp.getMesa()) == itens.get(
+				mPager.getCurrentItem()).getIdRestaurante()) {
+			Toast.makeText(this,
+					"Tire foto do QR da Mesa antes de fazer o pedido",
+					Toast.LENGTH_LONG).show();
+		} else {
+			MyApp.getCarrinho().addPedido(itens.get(mPager.getCurrentItem()));
+			Toast.makeText(
+					this,
+					itens.get(mPager.getCurrentItem()).getName()
+							+ " adicionado", Toast.LENGTH_SHORT).show();
+			Log.i("TAG", MyApp.getCarrinho().getPedidos() + "");
 		}
 	}
 

@@ -1,10 +1,12 @@
 package com.example.stardapio.fragments;
 
 //import android.app.Fragment;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +15,8 @@ import com.example.stardapio.R;
 import com.example.stardapio.bean.Item;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class ScreenSlidePageFragment extends Fragment {
+public class ScreenSlidePageFragment extends Fragment implements
+		OnClickListener {
 
 	public static final String ARG_PAGE = "page";
 	private static final String ARG_PRICE = "price";
@@ -66,12 +69,10 @@ public class ScreenSlidePageFragment extends Fragment {
 		ImageLoader imageLoader = ImageLoader.getInstance();
 
 		imageLoader.displayImage(mUrlImage, imageView);
-		
-		((TextView) rootView.findViewById(android.R.id.text1))
-				.setText(mName);
-		
-		((TextView) rootView.findViewById(R.id.price))
-				.setText("R$ " + mPrice);
+
+		((TextView) rootView.findViewById(android.R.id.text1)).setText(mName);
+
+		((TextView) rootView.findViewById(R.id.price)).setText("R$ " + mPrice);
 
 		((TextView) rootView.findViewById(R.id.description))
 				.setText(mDescricao);
@@ -81,5 +82,10 @@ public class ScreenSlidePageFragment extends Fragment {
 
 	public int getPageNumber() {
 		return mPageNumber;
+	}
+
+	@Override
+	public void onClick(View v) {
+		Log.i("TAG", "ONCLICK");
 	}
 }

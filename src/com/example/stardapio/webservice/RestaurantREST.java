@@ -15,13 +15,13 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 public class RestaurantREST {
-	private static final String URL_WSRESTAURANTE = "http://stardapio.zapto.org/StarDapioREST/restaurante/";
-	private static final String URL_WSMENU = "http://stardapio.zapto.org/StarDapioREST/menu/";
-
 	// private static final String URL_WSRESTAURANTE =
-	// "http://192.168.1.32:8081/StarDapioREST/restaurante/";
+	// "http://stardapio.zapto.org/StarDapioREST/restaurante/";
 	// private static final String URL_WSMENU =
-	// "http://192.168.1.32:8081/StarDapioREST/menu/";
+	// "http://stardapio.zapto.org/StarDapioREST/menu/";
+
+	private static final String URL_WSRESTAURANTE = "http://192.168.1.32:8081/StarDapioREST/restaurante/";
+	private static final String URL_WSMENU = "http://192.168.1.32:8081/StarDapioREST/menu/";
 
 	// private static final String URL_WSRESTAURANTE =
 	// "http://192.168.1.33:8080/StarDapioREST/restaurante/";
@@ -133,11 +133,13 @@ public class RestaurantREST {
 			Gson gson = new Gson();
 			ContainerTypeAndSubType container;
 			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
+			// JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
 
-			Type collectionType = new TypeToken<List<com.example.stardapio.bean.Type>>() {
+			Type collectionType = new TypeToken<ContainerTypeAndSubType>() {
 			}.getType();
-			container = gson.fromJson(array, collectionType);
+			// container = gson.fromJson(array, collectionType);
+			container = gson
+					.fromJson(parser.parse(resposta[1]), collectionType);
 
 			return container;
 
