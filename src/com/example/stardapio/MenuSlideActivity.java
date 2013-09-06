@@ -109,7 +109,7 @@ public class MenuSlideActivity extends FragmentActivity {
 	}
 
 	public void adicionar(View view) {
-		if ((MyApp.getMesa() != null) && Integer.parseInt(MyApp.getMesa()) == itens.get(
+		if ((MyApp.getMesa() == null) || Integer.parseInt(MyApp.getMesa()) != itens.get(
 				mPager.getCurrentItem()).getIdRestaurante()) {
 			Toast.makeText(this,
 					"Tire foto do QR da Mesa antes de fazer o pedido",

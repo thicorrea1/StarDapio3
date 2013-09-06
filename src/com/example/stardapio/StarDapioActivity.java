@@ -90,6 +90,12 @@ public class StarDapioActivity extends FragmentActivity {
 		});
 		mMap.setMyLocationEnabled(true);
 	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		MyApp.setCarrinho(null);
+	}
 
 	private void setUpMapIfNeeded() {
 		if (mMap == null) {

@@ -19,7 +19,7 @@ import com.example.stardapio.webservice.RestaurantREST;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class TypeActivity extends ListActivity {
-	ImageLoaderConfiguration config;
+	/*ImageLoaderConfiguration config;
 
 	private class GetAsync extends AsyncTask<Void, Void, List<Type>> {
 
@@ -86,5 +86,5 @@ public class TypeActivity extends ListActivity {
 		intent.putExtra("idType", idType);
 		intent.putExtra("idRestaurante", getIntent().getExtras().getString("idRestaurante"));
 		startActivity(intent);
-	}
+	}*/
 }

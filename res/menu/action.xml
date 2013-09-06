@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stardapio="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/cardapio"
+        android:title="@string/action_search"
+        stardapio:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_compose"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/action_compose"
+        stardapio:showAsAction="ifRoom"/>
+
+</menu>

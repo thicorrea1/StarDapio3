@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.stardapio.bean.ContainerTypeAndSubType;
 import com.example.stardapio.bean.Item;
+import com.example.stardapio.bean.Pedido;
 import com.example.stardapio.bean.Restaurant;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -19,9 +20,15 @@ public class RestaurantREST {
 	// "http://stardapio.zapto.org/StarDapioREST/restaurante/";
 	// private static final String URL_WSMENU =
 	// "http://stardapio.zapto.org/StarDapioREST/menu/";
+	private static final String dominio = "http://ec2-54-232-244-58.sa-east-1.compute.amazonaws.com/";
+	
+	private static final String URL_WSRESTAURANTE = dominio + "StarDapioREST/restaurante/";
+	private static final String URL_WSMENU = dominio + "StarDapioREST/menu/";
+	private static final String URL_WSPEDIDO = dominio + "StarDapioREST/pedido/";
 
-	private static final String URL_WSRESTAURANTE = "http://192.168.1.32:8081/StarDapioREST/restaurante/";
-	private static final String URL_WSMENU = "http://192.168.1.32:8081/StarDapioREST/menu/";
+	//private static final String URL_WSRESTAURANTE = "http://192.168.1.32:8081/StarDapioREST/restaurante/";
+	//private static final String URL_WSMENU = "http://192.168.1.32:8081/StarDapioREST/menu/";
+	//private static final String URL_WSPEDIDO = "http://192.168.1.32:8081/StarDapioREST/pedido/";
 
 	// private static final String URL_WSRESTAURANTE =
 	// "http://192.168.1.33:8080/StarDapioREST/restaurante/";
@@ -32,6 +39,17 @@ public class RestaurantREST {
 	// "http://10.0.2.2:8080/StarDapioREST/restaurante/";
 	// private static final String URL_WSMENU =
 	// "http://10.0.2.2:8080/StarDapioREST/menu/";
+	
+	public String addPedido(Pedido pedido) throws Exception {
+		Gson gson = new Gson();
+	     String pedidoJSON= gson.toJson(pedido);
+	     String[] resposta = new WebServiceRestaurant().post(URL_WSPEDIDO + "adicionar", pedidoJSON);
+	     if (resposta[0].equals("200")) {
+	         return resposta[1];
+	     } else {
+	         throw new Exception(resposta[1]);
+	     }
+	}
 
 	public List<Restaurant> getListaRestaurante() throws Exception {
 

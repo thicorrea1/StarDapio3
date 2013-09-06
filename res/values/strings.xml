@@ -17,5 +17,8 @@
 	<string name="msg_default_status">Place a barcode inside the viewfinder rectangle to scan it. </string>
 	
 	<string name="adicionar">Adicionar</string>
+	
+	<string name="action_search">Search</string>
+	<string name="action_compose">Compose</string>
 
 </resources>
