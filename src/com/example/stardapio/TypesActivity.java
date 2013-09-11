@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
@@ -24,7 +25,7 @@ public class TypesActivity extends ActionBarActivity {
 	ExpandableListAdapter adapter;
 	ExpandableListView eListView;
 	private TextView buttonScan;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.types);
@@ -70,20 +71,6 @@ public class TypesActivity extends ActionBarActivity {
 				});
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		if (buttonScan != null)
-			buttonScan.setText("Mesa " + MyApp.getMesa());
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.action, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
 	protected void goMenuSlide(long id) {
 		Intent intent = new Intent(getApplicationContext(),
 				MenuSlideActivity.class);
@@ -97,6 +84,39 @@ public class TypesActivity extends ActionBarActivity {
 	public void scan(View button) {
 		startActivity(new Intent(this, QRCodeActivity.class));
 		buttonScan = (Button) button;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (buttonScan != null)
+			buttonScan.setText("Mesa " + MyApp.getMesa());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.action, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.i("TAG", " " + item.getItemId());
+		switch (item.getItemId()) {
+		case R.id.action_pedidos:
+			showPedidos();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void showPedidos() {
+		Intent intent = new Intent(getApplicationContext(),
+				PedidosActivity.class);
+		startActivity(intent);
 	}
 
 	private class GetAsync extends
@@ -131,7 +151,5 @@ public class TypesActivity extends ActionBarActivity {
 			eListView.setAdapter(adapter);
 			dialog.dismiss();
 		}
-
 	}
-
 }

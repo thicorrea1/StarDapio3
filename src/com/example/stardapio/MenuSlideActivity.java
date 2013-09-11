@@ -115,12 +115,12 @@ public class MenuSlideActivity extends FragmentActivity {
 					"Tire foto do QR da Mesa antes de fazer o pedido",
 					Toast.LENGTH_LONG).show();
 		} else {
-			MyApp.getCarrinho().addPedido(itens.get(mPager.getCurrentItem()));
+			MyApp.getPedido().addItem(itens.get(mPager.getCurrentItem()));
 			Toast.makeText(
 					this,
 					itens.get(mPager.getCurrentItem()).getName()
 							+ " adicionado", Toast.LENGTH_SHORT).show();
-			Log.i("TAG", MyApp.getCarrinho().getPedidos() + "");
+			Log.i("TAG", MyApp.getPedido().getItens() + "");
 		}
 	}
 

@@ -72,6 +72,8 @@ public class StarDapioActivity extends FragmentActivity {
 
 			@Override
 			public void onInfoWindowClick(Marker marker) {
+				Log.i("TAG", markerMap.get(marker) + "");				
+				MyApp.getPedido().setIdRestaurant(markerMap.get(marker));
 				goCardapio(markerMap.get(marker).toString());
 			}
 		});
@@ -94,7 +96,7 @@ public class StarDapioActivity extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		MyApp.setCarrinho(null);
+		MyApp.setPedido(null);
 	}
 
 	private void setUpMapIfNeeded() {

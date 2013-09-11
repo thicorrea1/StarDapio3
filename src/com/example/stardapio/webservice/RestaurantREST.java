@@ -43,7 +43,7 @@ public class RestaurantREST {
 	public String addPedido(Pedido pedido) throws Exception {
 		Gson gson = new Gson();
 	     String pedidoJSON= gson.toJson(pedido);
-	     String[] resposta = new WebServiceRestaurant().post(URL_WSPEDIDO + "adicionar", pedidoJSON);
+	     String[] resposta = new WebServiceRestaurant().post(URL_WSPEDIDO + "adiciona", pedidoJSON);
 	     if (resposta[0].equals("200")) {
 	         return resposta[1];
 	     } else {

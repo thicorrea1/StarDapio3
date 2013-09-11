@@ -48,10 +48,10 @@ public class QRCodeActivity extends Activity {
 					public void run() {
 						// txtScanResult.setText(result);
 						MyApp.setMesa(result);
-						Log.i("MESA NUMERO =>", MyApp.getMesa());
 					}
 				});
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+				MyApp.getPedido().setMesa(Long.parseLong(result));
 			}
 			break;
 		default:

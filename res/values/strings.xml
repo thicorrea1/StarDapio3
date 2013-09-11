@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_cardapio">Cardapio</string>
     <string name="title_activity_type">Menu</string>
+    <string name="title_activity_pedidos">Pedidos</string>
     <string name="title_activity_menu_slide">Menu Hahahaha Activity</string>
     <string name="action_previous">Previous</string>
     <string name="action_next">Next</string>
@@ -18,7 +19,13 @@
 	
 	<string name="adicionar">Adicionar</string>
 	
-	<string name="action_search">Search</string>
+	<string name="action_pedidos">Pedidos</string>
 	<string name="action_compose">Compose</string>
+	
+	<string name="message_empty_layout_changes">Nenhum pedido adicionado</string>
+	<string name="action_remove_item">Remover Item</string>
+	
+	<string name="action_add_item">Adicionar</string>
+	<string name="send">Enviar</string>
 
 </resources>
