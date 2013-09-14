@@ -20,11 +20,11 @@ public class RestaurantREST {
 	// "http://stardapio.zapto.org/StarDapioREST/restaurante/";
 	// private static final String URL_WSMENU =
 	// "http://stardapio.zapto.org/StarDapioREST/menu/";
-	private static final String dominio = "http://ec2-54-232-201-137.sa-east-1.compute.amazonaws.com/";
+	private static final String dominio = "http://stardapio.com.br/rest/";
 	
-	private static final String URL_WSRESTAURANTE = dominio + "StarDapioREST/restaurante/";
-	private static final String URL_WSMENU = dominio + "StarDapioREST/menu/";
-	private static final String URL_WSPEDIDO = dominio + "StarDapioREST/pedido/";
+	private static final String URL_WSRESTAURANTE = dominio + "restaurante/";
+	private static final String URL_WSMENU = dominio + "menu/";
+	private static final String URL_WSPEDIDO = dominio + "pedido/";
 
 	//private static final String URL_WSRESTAURANTE = "http://192.168.1.32:8081/StarDapioREST/restaurante/";
 	//private static final String URL_WSMENU = "http://192.168.1.32:8081/StarDapioREST/menu/";

@@ -46,8 +46,9 @@ public class QRCodeActivity extends Activity {
 				handler.post(new Runnable() {
 					@Override
 					public void run() {
-						// txtScanResult.setText(result);
+						// txtScanResult.setText(result);						
 						MyApp.setMesa(result);
+						Log.i("PEDIDO", result);
 					}
 				});
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
