@@ -1,8 +1,11 @@
 package com.example.stardapio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.stardapio.adapter.TypesAdapter;
+import com.example.stardapio.bean.ContainerTypeAndSubType;
 import com.example.stardapio.bean.Item;
 import com.example.stardapio.bean.Pedido;
 import com.example.stardapio.webservice.RestaurantREST;
@@ -44,7 +49,7 @@ public class PedidosActivity extends Activity {
 		// Set the text in the new row to a random country.
 		((TextView) newView.findViewById(android.R.id.text1)).setText(i
 				.getName());
-		
+
 		final Item itemFinal = i;
 
 		// Set a click listener for the "X" button in the row that will remove
@@ -58,7 +63,7 @@ public class PedidosActivity extends Activity {
 						// android:animateLayoutChanges set to true,
 						// this removal is automatically animated.
 						mContainerView.removeView(newView);
-						
+
 						MyApp.getPedido().deletePedido(itemFinal);
 
 						// If there are no rows remaining, show the empty view.
@@ -75,21 +80,48 @@ public class PedidosActivity extends Activity {
 	}
 
 	public void send(View button) {
-		RestaurantREST rest = new RestaurantREST();
-		Pedido pedido = MyApp.getPedido();
-		Log.i("TAG", pedido + "");
-		if (pedido.getItens().size() == 0) {
-			Toast.makeText(this, "Adicione itens antes de enviar o pedido",
-					Toast.LENGTH_LONG).show();
-		} else {
-			try {
-				rest.addPedido(pedido);
-				MyApp.getPedido().setItens(null);
-			} catch (Exception e) {
-				Toast.makeText(this, "Ocorreu um erro ao enviar o pedido",
+		new GetAsync().execute();
+	}
+
+	private class GetAsync extends AsyncTask<Void, Void, Void> {
+
+		private ProgressDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(PedidosActivity.this);
+			dialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			RestaurantREST rest = new RestaurantREST();
+			Pedido pedido = MyApp.getPedido();
+			Log.i("TAG", pedido + "");
+			if (pedido.getItens().size() == 0) {
+				Toast.makeText(getApplicationContext(),
+						"Adicione itens antes de enviar o pedido",
 						Toast.LENGTH_LONG).show();
-				e.printStackTrace();
+			} else {
+				try {
+					rest.addPedido(pedido);
+					MyApp.getPedido().setItens(new ArrayList<Item>());
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							"Ocorreu um erro ao enviar o pedido",
+							Toast.LENGTH_LONG).show();
+					e.printStackTrace();
+				}
 			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			mContainerView.removeAllViews();
+			dialog.dismiss();
 		}
 	}
+
 }

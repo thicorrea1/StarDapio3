@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
+	private long idPedido;
 	private List<Item> itens;
 	private String idCliente;
 	private long mesa;
 	private long idRestaurant;
+	private int coluna;
 
 	public Pedido() {
 		itens = new ArrayList<Item>();
+		coluna = 1;
 	}
 
 	public Pedido(String idCliente, long idRestaurante, String mesa) {
@@ -21,6 +24,14 @@ public class Pedido {
 
 	public void deletePedido(Item pedido) {
 		itens.remove(pedido);
+	}
+
+	public long getIdPedido() {
+		return idPedido;
+	}
+
+	public void setIdPedido(long idPedido) {
+		this.idPedido = idPedido;
 	}
 
 	public void addItem(Item item) {
@@ -59,8 +70,31 @@ public class Pedido {
 		this.idRestaurant = idRestaurant;
 	}
 	
+	public int getColuna() {
+		return coluna;
+	}
+
+	public void setColuna(int coluna) {
+		this.coluna = coluna;
+	}
+
 	@Override
 	public String toString() {
 		return itens.toString();
+	}
+	
+	@Override
+	public int hashCode() {
+		return (int) idPedido;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if ((obj instanceof Pedido)
+				&& (((Pedido) obj).getIdPedido() == this.idPedido)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

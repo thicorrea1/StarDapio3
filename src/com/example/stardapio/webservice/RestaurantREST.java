@@ -21,14 +21,17 @@ public class RestaurantREST {
 	// private static final String URL_WSMENU =
 	// "http://stardapio.zapto.org/StarDapioREST/menu/";
 	private static final String dominio = "http://stardapio.com.br/rest/";
-	
+
 	private static final String URL_WSRESTAURANTE = dominio + "restaurante/";
 	private static final String URL_WSMENU = dominio + "menu/";
 	private static final String URL_WSPEDIDO = dominio + "pedido/";
 
-	//private static final String URL_WSRESTAURANTE = "http://192.168.1.32:8081/StarDapioREST/restaurante/";
-	//private static final String URL_WSMENU = "http://192.168.1.32:8081/StarDapioREST/menu/";
-	//private static final String URL_WSPEDIDO = "http://192.168.1.32:8081/StarDapioREST/pedido/";
+	// private static final String URL_WSRESTAURANTE =
+	// "http://192.168.1.32:8081/StarDapioREST/restaurante/";
+	// private static final String URL_WSMENU =
+	// "http://192.168.1.32:8081/StarDapioREST/menu/";
+	// private static final String URL_WSPEDIDO =
+	// "http://192.168.1.32:8081/StarDapioREST/pedido/";
 
 	// private static final String URL_WSRESTAURANTE =
 	// "http://192.168.1.33:8080/StarDapioREST/restaurante/";
@@ -39,16 +42,21 @@ public class RestaurantREST {
 	// "http://10.0.2.2:8080/StarDapioREST/restaurante/";
 	// private static final String URL_WSMENU =
 	// "http://10.0.2.2:8080/StarDapioREST/menu/";
-	
+
 	public String addPedido(Pedido pedido) throws Exception {
+		// Log.i("ADD", "IDCLIENTE: " + pedido.getIdCliente() +
+		// "IDRESTAURANTE: " + pedido.getIdRestaurant() + "ITEM: " +
+		// pedido.getItens().get(0).getName() + "MESA: " + pedido.getMesa());
 		Gson gson = new Gson();
-	     String pedidoJSON= gson.toJson(pedido);
-	     String[] resposta = new WebServiceRestaurant().post(URL_WSPEDIDO + "adiciona", pedidoJSON);
-	     if (resposta[0].equals("200")) {
-	         return resposta[1];
-	     } else {
-	         throw new Exception(resposta[1]);
-	     }
+		String pedidoJSON = gson.toJson(pedido);
+		String[] resposta = new WebServiceRestaurant().post(URL_WSPEDIDO
+				+ "adiciona", pedidoJSON);
+		Log.i("ADD", pedidoJSON);
+		if (resposta[0].equals("200")) {
+			return resposta[1];
+		} else {
+			throw new Exception(resposta[1]);
+		}
 	}
 
 	public List<Restaurant> getListaRestaurante() throws Exception {
